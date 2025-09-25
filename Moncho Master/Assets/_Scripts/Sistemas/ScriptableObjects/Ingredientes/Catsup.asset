@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f95e48a58bcc7249a84df9ffebb0b3c, type: 3}
+  m_Name: Catsup
+  m_EditorClassIdentifier: Assembly-CSharp::IngredientSO
+  id: Catsup
+  displayName: Catsup
+  icon: {fileID: 0}
+  category: 1
+  tags: []
+  isUnlocked: 1
