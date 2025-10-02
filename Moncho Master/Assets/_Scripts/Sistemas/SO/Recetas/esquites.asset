@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b757dd3fe17a08c439e2abc03cdc07ff, type: 3}
+  m_Name: esquites
+  m_EditorClassIdentifier: Assembly-CSharp::RecipeSO
+  id: esquites
+  isUnlocked: 1
+  output:
+    id: esquites
+    displayName: Esquites
+    icon: {fileID: 0}
+    price: 35
+  useExactIngredients: 0
+  orderMatters: 0
+  exactIngredients:
+  - ingredient: {fileID: 11400000, guid: a1b56ea12fe9d70408f2c784c9b045d0, type: 2}
+    quantity: 0
+  - ingredient: {fileID: 11400000, guid: 8f94e150205bb344eade812e52e292cb, type: 2}
+    quantity: 0
+  - ingredient: {fileID: 11400000, guid: e04cc0200fb5bb94b9e7a9f79fe992bc, type: 2}
+    quantity: 0
+  - ingredient: {fileID: 11400000, guid: 1cd648b5339ed0342a0daf6e243536d5, type: 2}
+    quantity: 0
+  - ingredient: {fileID: 11400000, guid: f9c3cb4fa3c2db248ac590c61bb097e4, type: 2}
+    quantity: 0
+  categoryRequirements: []
+  maxExtras: 0

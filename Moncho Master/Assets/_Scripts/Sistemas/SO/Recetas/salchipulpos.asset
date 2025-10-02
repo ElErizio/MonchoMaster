@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b757dd3fe17a08c439e2abc03cdc07ff, type: 3}
+  m_Name: salchipulpos
+  m_EditorClassIdentifier: Assembly-CSharp::RecipeSO
+  id: salchipulpos
+  isUnlocked: 1
+  output:
+    id: salchipulpos
+    displayName: Salchipulpos
+    icon: {fileID: 0}
+    price: 45
+  useExactIngredients: 0
+  orderMatters: 0
+  exactIngredients:
+  - ingredient: {fileID: 11400000, guid: f4c2ebc47ca4b8a4bbcee9830ceafcc3, type: 2}
+    quantity: 0
+  - ingredient: {fileID: 11400000, guid: c2aa9d6dfdaa47a49a344009b6eb32cc, type: 2}
+    quantity: 0
+  - ingredient: {fileID: 11400000, guid: f9c3cb4fa3c2db248ac590c61bb097e4, type: 2}
+    quantity: 0
+  - ingredient: {fileID: 11400000, guid: d24e41b60ee566c46a0f6c99f91ff0d6, type: 2}
+    quantity: 0
+  - ingredient: {fileID: 11400000, guid: 8f94e150205bb344eade812e52e292cb, type: 2}
+    quantity: 0
+  - ingredient: {fileID: 11400000, guid: 412d02ff5bd433c4c9f0fd4af645db11, type: 2}
+    quantity: 0
+  categoryRequirements: []
+  maxExtras: 0

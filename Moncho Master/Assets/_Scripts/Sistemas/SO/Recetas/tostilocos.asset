@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b757dd3fe17a08c439e2abc03cdc07ff, type: 3}
+  m_Name: tostilocos
+  m_EditorClassIdentifier: Assembly-CSharp::RecipeSO
+  id: tostilocos
+  isUnlocked: 1
+  output:
+    id: tostilocos
+    displayName: Tostilocos
+    icon: {fileID: 0}
+    price: 45
+  useExactIngredients: 0
+  orderMatters: 0
+  exactIngredients:
+  - ingredient: {fileID: 11400000, guid: d925d574f2647214ebc6f91f5fb959a2, type: 2}
+    quantity: 0
+  - ingredient: {fileID: 11400000, guid: 3c61919069a331e41a966ba6b8a164be, type: 2}
+    quantity: 0
+  - ingredient: {fileID: 11400000, guid: 3510bd72cdd2b3c43bc6cace43ef484c, type: 2}
+    quantity: 0
+  - ingredient: {fileID: 11400000, guid: 1cd648b5339ed0342a0daf6e243536d5, type: 2}
+    quantity: 0
+  - ingredient: {fileID: 11400000, guid: 233e0267a69193547a91d41f46463148, type: 2}
+    quantity: 0
+  - ingredient: {fileID: 11400000, guid: 1cd648b5339ed0342a0daf6e243536d5, type: 2}
+    quantity: 0
+  - ingredient: {fileID: 11400000, guid: d9077a67cb4c2b447b02ded0bf4fe0c8, type: 2}
+    quantity: 0
+  - ingredient: {fileID: 11400000, guid: 613362cf4418a544c8d3c0758ed0d4bf, type: 2}
+    quantity: 0
+  categoryRequirements: []
+  maxExtras: 0
