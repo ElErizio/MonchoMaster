@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class ConfirmDeliverButton : MonoBehaviour
 {
@@ -6,6 +6,12 @@ public class ConfirmDeliverButton : MonoBehaviour
 
     public void OnClickConfirm()
     {
-        if (crafting != null) crafting.ConfirmAndDeliver();
+        if (crafting == null)
+        {
+            Debug.LogWarning("[ConfirmDeliverButton] CraftingManager no asignado.", this);
+            return;
+        }
+
+        crafting.ConfirmAndDeliver();
     }
 }
