@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f95e48a58bcc7249a84df9ffebb0b3c, type: 3}
   m_Name: queso
   m_EditorClassIdentifier: Assembly-CSharp::IngredientSO
-  id: queso
+  id: Queso
   displayName: Queso
   icon: {fileID: 21300000, guid: c92bd65e92cfea242aec80209162228f, type: 3}
   category: 2

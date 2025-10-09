@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f95e48a58bcc7249a84df9ffebb0b3c, type: 3}
   m_Name: Tostitos base
   m_EditorClassIdentifier: Assembly-CSharp::IngredientSO
-  id: tostitos
+  id: Tostitos
   displayName: Tostitos
   icon: {fileID: 0}
   category: 0
   tags: []
-  isUnlocked: 1
+  isUnlocked: 0

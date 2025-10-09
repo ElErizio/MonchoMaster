@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f95e48a58bcc7249a84df9ffebb0b3c, type: 3}
   m_Name: crema
   m_EditorClassIdentifier: Assembly-CSharp::IngredientSO
-  id: crema
+  id: Crema
   displayName: Crema
   icon: {fileID: 21300000, guid: a62c9e00a5acfac4d93d4031faecdbe1, type: 3}
   category: 1

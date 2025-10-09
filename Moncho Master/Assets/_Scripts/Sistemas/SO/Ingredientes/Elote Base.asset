@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f95e48a58bcc7249a84df9ffebb0b3c, type: 3}
   m_Name: Elote Base
   m_EditorClassIdentifier: Assembly-CSharp::IngredientSO
-  id: eloteBase
+  id: EloteBase
   displayName: Elote
   icon: {fileID: 21300000, guid: 8c994cba7cddacf4bb98af08b1918d33, type: 3}
   category: 0

@@ -17,4 +17,4 @@ MonoBehaviour:
   icon: {fileID: 0}
   category: 1
   tags: []
-  isUnlocked: 1
+  isUnlocked: 0

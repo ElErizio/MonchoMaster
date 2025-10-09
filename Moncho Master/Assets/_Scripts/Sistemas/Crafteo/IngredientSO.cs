@@ -1,4 +1,3 @@
-// IngredientSO.cs
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Moncho/Ingredient", fileName = "Ingredient")]

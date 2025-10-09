@@ -7,6 +7,7 @@ namespace Moncho.Orders
     {
         [Header("Refs")]
         [SerializeField] private CraftingManager crafting;
+        [SerializeField] private UnlockService unlocks;
 
         [Header("Pools de ingredientes permitidos")]
         [SerializeField] private IngredientSO[] baseOptions;
@@ -57,16 +58,34 @@ namespace Moncho.Orders
         {
             if (!ValidatePools()) return;
 
+            IngredientSO[] basePool = (unlocks != null) ? unlocks.FilterUnlocked(baseOptions) : baseOptions;
+            IngredientSO[] salsaPool = (unlocks != null) ? unlocks.FilterUnlocked(salsaOptions) : salsaOptions;
+            IngredientSO[] toppingPool = (unlocks != null) ? unlocks.FilterUnlocked(toppingOptions) : toppingOptions;
+
+            if (basePool == null || basePool.Length == 0)
+            {
+                Debug.LogWarning("[Orders] No hay bases desbloqueadas. Revisa UnlockService.initiallyUnlocked.", this);
+                return;
+            }
+            if (salsaPool == null || salsaPool.Length == 0)
+            {
+                Debug.LogWarning("[Orders] No hay salsas desbloqueadas. Revisa UnlockService o la loteria.", this);
+                return;
+            }
+            if (toppingPool == null || toppingPool.Length == 0)
+            {
+                Debug.LogWarning("[Orders] No hay toppings desbloqueados. Revisa UnlockService o la loteria.", this);
+                return;
+            }
+
             int sMin = Mathf.Max(1, minSalsas);
-            int sMax = Mathf.Max(sMin, maxSalsas);
-            if (sMax > salsaOptions.Length) sMax = salsaOptions.Length;
-
             int tMin = Mathf.Max(1, minToppings);
-            int tMax = Mathf.Max(tMin, maxToppings);
-            if (tMax > toppingOptions.Length) tMax = toppingOptions.Length;
 
-            int maxSAllowed = sMax;
-            int maxTAllowed = tMax;
+            int sMaxClamp = Mathf.Clamp(maxSalsas, sMin, salsaPool.Length);
+            int tMaxClamp = Mathf.Clamp(maxToppings, tMin, toppingPool.Length);
+
+            int maxSAllowed = sMaxClamp;
+            int maxTAllowed = tMaxClamp;
             int totalMax = 1 + maxSAllowed + maxTAllowed;
             if (maxItemsPerOrder > 0 && totalMax > maxItemsPerOrder)
             {
@@ -79,17 +98,18 @@ namespace Moncho.Orders
                 }
             }
 
-            IngredientSO pickBase = baseOptions[UnityEngine.Random.Range(0, baseOptions.Length)];
+            IngredientSO pickBase = basePool[UnityEngine.Random.Range(0, basePool.Length)];
             int sCount = UnityEngine.Random.Range(sMin, maxSAllowed + 1);
             int tCount = UnityEngine.Random.Range(tMin, maxTAllowed + 1);
 
             _current.baseIng = pickBase;
-            _current.salsas = PickUnique(salsaOptions, sCount);
-            _current.toppings = PickUnique(toppingOptions, tCount);
+            _current.salsas = PickUnique(salsaPool, sCount);
+            _current.toppings = PickUnique(toppingPool, tCount);
 
-            if (debugLogs) Log("Nuevo pedido -> " + BuildOrderText(_current));
+            if (debugLogs) Log("Nuevo pedido (solo desbloqueados) -> " + BuildOrderText(_current));
             var ch = OnOrderChanged; if (ch != null) ch(_current);
         }
+
 
         private bool ValidatePools()
         {

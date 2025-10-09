@@ -17,4 +17,4 @@ MonoBehaviour:
   icon: {fileID: 160545816306293835, guid: b814802726c95294086e4589c5124fa7, type: 3}
   category: 2
   tags: []
-  isUnlocked: 1
+  isUnlocked: 0

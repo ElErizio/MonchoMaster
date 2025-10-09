@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: b28e6312e1c3d6f4fba1900ae760c681
+guid: ce2b6fca1d700fd4295b138b817e38d7
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -3445762499347083884
-    second: button UI_0
+      213: -7401518356595706187
+    second: Mayonesa_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -46,7 +46,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -113,45 +113,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: button UI_0
+      name: Mayonesa_0
       rect:
         serializedVersion: 2
-        x: 79
-        y: 159
-        width: 18
-        height: 18
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 49d0e0663413e20d0800000000000000
-      internalID: -3445762499347083884
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: button UI_1
-      rect:
-        serializedVersion: 2
-        x: 80
-        y: 112
-        width: 16
-        height: 16
+        x: 0
+        y: 0
+        width: 1024
+        height: 1024
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: de432d8745ad25240aab661ba13fc77e
-      internalID: 2107330783
+      spriteID: 5b674940546884990800000000000000
+      internalID: -7401518356595706187
       vertices: []
       indices: 
       edges: []
@@ -160,7 +138,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: a41e950993582064d90de62e708bd2c8
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
@@ -170,8 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      button UI_0: -3445762499347083884
-      button UI_1: 2107330783
+      Mayonesa_0: -7401518356595706187
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
