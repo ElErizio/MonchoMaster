@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f95e48a58bcc7249a84df9ffebb0b3c, type: 3}
   m_Name: cacahuates
   m_EditorClassIdentifier: Assembly-CSharp::IngredientSO
-  id: 
-  displayName: 
-  icon: {fileID: 0}
-  category: 0
+  id: cacahuates
+  displayName: Cacahuates
+  icon: {fileID: 3101827537196448773, guid: 0458f4419c8552e4cb10f99854aa7e26, type: 3}
+  category: 2
   tags: []
   isUnlocked: 1
