@@ -9,6 +9,17 @@ public class CraftingManager : MonoBehaviour
 
     public delegate void DishCrafted(RecipeSO.DishData dish, RecipeSO recipe);
     public event DishCrafted OnDishCrafted;
+    public delegate void DishDelivered(DeliveryPayload payload);
+    public event DishDelivered OnDishDelivered;
+
+    public struct DeliveryPayload
+    {
+        public bool matched;
+        public RecipeSO recipe;
+        public RecipeSO.DishData dish;
+        public string normalizedKey;
+        public string[] ingredientIds;
+    }
 
     private void OnEnable() { if (plate != null) plate.OnContentChanged += Evaluate; }
     private void OnDisable() { if (plate != null) plate.OnContentChanged -= Evaluate; }
@@ -77,6 +88,79 @@ public class CraftingManager : MonoBehaviour
 
         return true;
     }
+
+    public bool ConfirmAndDeliver()
+    {
+        if (plate == null || index == null) return false;
+        var items = plate.Items;
+        if (items == null || items.Count == 0) return false;
+
+        plate.SetLocked(true);
+
+        string normKey = plate.GetNormalizedKey();
+        string[] ids = new string[items.Count];
+        for (int i = 0; i < items.Count; i++)
+            ids[i] = (items[i] != null) ? items[i].Id : "null";
+
+        RecipeSO match;
+        if (index.TryFindExact(normKey, out match) && IsValidPlateFor(match))
+        {
+            DeliveryPayload p;
+            p.matched = true;
+            p.recipe = match;
+            p.dish = match.output;
+            p.normalizedKey = normKey;
+            p.ingredientIds = ids;
+
+            Craft(match);
+
+            var h = OnDishDelivered; if (h != null) h(p);
+
+            plate.SetLocked(false);
+            return true;
+        }
+
+        foreach (var r in index.All)
+        {
+            if (r == null) continue;
+            if (r.categoryRequirements == null || r.categoryRequirements.Count == 0) continue;
+            if (MatchesByCategory(r) && IsValidPlateFor(r))
+            {
+                DeliveryPayload p;
+                p.matched = true;
+                p.recipe = r;
+                p.dish = r.output;
+                p.normalizedKey = normKey;
+                p.ingredientIds = ids;
+
+                Craft(r);
+                var h = OnDishDelivered; if (h != null) h(p);
+
+                plate.SetLocked(false);
+                return true;
+            }
+        }
+
+        DeliveryPayload improv;
+        improv.matched = false;
+        improv.recipe = null;
+        improv.dish = new RecipeSO.DishData
+        {
+            id = "custom_" + normKey,
+            displayName = "Platillo improvisado",
+            icon = null,
+            price = 0
+        };
+        improv.normalizedKey = normKey;
+        improv.ingredientIds = ids;
+
+        plate.Clear();
+        var h2 = OnDishDelivered; if (h2 != null) h2(improv);
+
+        plate.SetLocked(false);
+        return true;
+    }
+
 
     public void Craft(RecipeSO r)
     {

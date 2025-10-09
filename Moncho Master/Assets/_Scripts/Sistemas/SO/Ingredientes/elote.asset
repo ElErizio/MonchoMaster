@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: elote
   m_EditorClassIdentifier: Assembly-CSharp::IngredientSO
   id: elote
-  displayName: Elote
+  displayName: Elote topping
   icon: {fileID: 160545816306293835, guid: b814802726c95294086e4589c5124fa7, type: 3}
   category: 2
   tags: []

@@ -9,6 +9,8 @@ public class PlateDropTarget : MonoBehaviour, IDropHandler, IPointerEnterHandler
 
     public void OnDrop(PointerEventData eventData)
     {
+        if (plate == null || plate.IsLocked) return;
+
         if (eventData.pointerDrag == null || plate == null) return;
 
         DraggableIngredientUI drag = eventData.pointerDrag.GetComponent<DraggableIngredientUI>();

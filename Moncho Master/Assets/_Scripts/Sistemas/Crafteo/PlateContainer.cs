@@ -16,6 +16,9 @@ public class PlateContainer : MonoBehaviour
     [SerializeField] private int capacity = 6;
     [SerializeField] private bool allowDuplicates = true;
     [SerializeField] private List<CategoryLimit> categoryLimits = new List<CategoryLimit>();
+    [SerializeField] private bool locked = false;
+    public bool IsLocked { get { return locked; } }
+    public void SetLocked(bool value) { locked = value; }
 
     private readonly List<IngredientSO> _items = new List<IngredientSO>();
     public event Action OnContentChanged;
@@ -25,21 +28,11 @@ public class PlateContainer : MonoBehaviour
     private void OnValidate()
     {
         if (capacity < 0) capacity = 0;
-        for (int i = 0; i < categoryLimits.Count; i++)
-        {
-            for (int j = i + 1; j < categoryLimits.Count; j++)
-            {
-                if (categoryLimits[i].category == categoryLimits[j].category)
-                {
-                    categoryLimits.RemoveAt(j);
-                    j--;
-                }
-            }
-        }
     }
 
     public bool CanAccept(IngredientSO ing)
     {
+        if (locked) return false;
         if (ing == null) return false;
         if (!ing.IsUnlocked) return false;
         if (_items.Count >= capacity) return false;
