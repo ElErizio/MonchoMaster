@@ -1837,8 +1837,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: f9c3cb4fa3c2db248ac590c61bb097e4, type: 2}
   initiallyUnlocked:
   - {fileID: 11400000, guid: a1b56ea12fe9d70408f2c784c9b045d0, type: 2}
-  - {fileID: 11400000, guid: f4c2ebc47ca4b8a4bbcee9830ceafcc3, type: 2}
-  - {fileID: 11400000, guid: d925d574f2647214ebc6f91f5fb959a2, type: 2}
   - {fileID: 11400000, guid: e04cc0200fb5bb94b9e7a9f79fe992bc, type: 2}
   - {fileID: 11400000, guid: 8f94e150205bb344eade812e52e292cb, type: 2}
   usePlayerPrefs: 0

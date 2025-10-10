@@ -19,7 +19,7 @@ public class LoteriaService : MonoBehaviour
         public bool marked;
     }
 
-    private Cell[] _board;
+    [SerializeField] private Cell[] _board;
 
     public delegate void BoardChanged();
     public event BoardChanged OnBoardChanged;
@@ -93,8 +93,6 @@ public class LoteriaService : MonoBehaviour
 
     private void HandleDelivered(CraftingManager.DeliveryPayload p)
     {
-        if (!p.matched) return;
-
         int n = _board != null ? _board.Length : 0;
         if (n == 0) return;
 

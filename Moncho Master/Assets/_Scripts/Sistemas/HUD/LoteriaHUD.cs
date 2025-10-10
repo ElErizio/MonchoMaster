@@ -47,6 +47,12 @@ public class LoteriaHUD : MonoBehaviour
         _spawned.Clear();
     }
 
+    [ContextMenu("Hola Papu")]
+    public void Debuggg()
+    {
+        Rebuild();
+    }
+
     public void Rebuild()
     {
         Clear();
@@ -63,11 +69,7 @@ public class LoteriaHUD : MonoBehaviour
         }
 
         var cells = loteria.Snapshot;
-        if (cells == null || cells.Length == 0)
-        {
-            QueueDeferredRebuild();
-            return;
-        }
+       
 
         Transform parent = gridRoot != null ? gridRoot : transform;
 

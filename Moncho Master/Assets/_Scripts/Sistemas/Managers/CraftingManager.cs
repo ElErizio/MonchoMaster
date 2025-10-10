@@ -115,7 +115,6 @@ public class CraftingManager : MonoBehaviour
             Craft(match);
 
             var h = OnDishDelivered; if (h != null) h(p);
-
             plate.SetLocked(false);
             return true;
         }

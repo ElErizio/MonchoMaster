@@ -4,7 +4,7 @@ using UnityEngine.UI;
 public class LoteriaCellUI : MonoBehaviour
 {
     [SerializeField] private Image icon;
-    [SerializeField] private Image markOverlay;
+    [SerializeField] private GameObject markOverlay;
 
     public void Bind(Sprite sprite, bool marked)
     {
@@ -16,7 +16,7 @@ public class LoteriaCellUI : MonoBehaviour
         }
         if (markOverlay != null)
         {
-            markOverlay.gameObject.SetActive(marked);
+            markOverlay.SetActive(marked);
         }
     }
 }
