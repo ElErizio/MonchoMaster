@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::IngredientSO
   id: Queso
   displayName: Queso
-  icon: {fileID: 21300000, guid: c92bd65e92cfea242aec80209162228f, type: 3}
+  icon: {fileID: -6792713134149622168, guid: 8f593965e10ded2478bd0d07cc06f284, type: 3}
   category: 2
   tags: []
   isUnlocked: 1

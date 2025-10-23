@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::IngredientSO
   id: EloteBase
   displayName: Elote
-  icon: {fileID: 21300000, guid: 8c994cba7cddacf4bb98af08b1918d33, type: 3}
+  icon: {fileID: 7695653940227108397, guid: 8f593965e10ded2478bd0d07cc06f284, type: 3}
   category: 0
   tags: []
   isUnlocked: 1

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::IngredientSO
   id: Mayonesa
   displayName: Mayonesa
-  icon: {fileID: 21300000, guid: ce2b6fca1d700fd4295b138b817e38d7, type: 3}
+  icon: {fileID: -5224858269344051660, guid: 8f593965e10ded2478bd0d07cc06f284, type: 3}
   category: 1
   tags: []
   isUnlocked: 0

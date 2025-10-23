@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::IngredientSO
   id: cacahuates
   displayName: Cacahuates
-  icon: {fileID: 3101827537196448773, guid: 0458f4419c8552e4cb10f99854aa7e26, type: 3}
+  icon: {fileID: 3774893107622595943, guid: 8f593965e10ded2478bd0d07cc06f284, type: 3}
   category: 2
   tags: []
   isUnlocked: 0

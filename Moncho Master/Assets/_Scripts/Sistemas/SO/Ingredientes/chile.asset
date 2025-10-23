@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::IngredientSO
   id: chile
   displayName: Chile
-  icon: {fileID: 0}
+  icon: {fileID: -5070019827349752917, guid: 8f593965e10ded2478bd0d07cc06f284, type: 3}
   category: 1
   tags: []
   isUnlocked: 0

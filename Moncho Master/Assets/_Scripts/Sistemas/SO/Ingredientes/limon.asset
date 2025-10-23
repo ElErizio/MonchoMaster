@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::IngredientSO
   id: limon
   displayName: Limon
-  icon: {fileID: 0}
+  icon: {fileID: 5797622679909731437, guid: 8f593965e10ded2478bd0d07cc06f284, type: 3}
   category: 1
   tags: []
   isUnlocked: 0
