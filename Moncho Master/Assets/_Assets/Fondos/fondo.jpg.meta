@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: ce2b6fca1d700fd4295b138b817e38d7
+guid: 11cc920b426c3d541a780627fd66b388
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -7401518356595706187
-    second: Mayonesa_0
+      213: -408327487947842520
+    second: fondo_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Mayonesa_0
+      name: fondo_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 1024
-        height: 1024
+        width: 1080
+        height: 608
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 5b674940546884990800000000000000
-      internalID: -7401518356595706187
+      spriteID: 82c57d82054555af0800000000000000
+      internalID: -408327487947842520
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Mayonesa_0: -7401518356595706187
+      fondo_0: -408327487947842520
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

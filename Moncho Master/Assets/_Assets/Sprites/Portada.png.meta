@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: c92bd65e92cfea242aec80209162228f
+guid: 6750b54d8d11625479c10e3ebe5f3a73
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 3045872061430361395
-    second: queso rallado_0
+      213: -8055689888391485189
+    second: Portada_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: queso rallado_0
+      name: Portada_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 1024
-        height: 1024
+        width: 612
+        height: 792
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 33de7dc808c154a20800000000000000
-      internalID: 3045872061430361395
+      spriteID: bf828b53ab0743090800000000000000
+      internalID: -8055689888391485189
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      queso rallado_0: 3045872061430361395
+      Portada_0: -8055689888391485189
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

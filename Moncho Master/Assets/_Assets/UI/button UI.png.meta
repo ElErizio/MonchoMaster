@@ -143,7 +143,7 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -152,6 +152,28 @@ TextureImporter:
       bones: []
       spriteID: de432d8745ad25240aab661ba13fc77e
       internalID: 2107330783
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PauseButton
+      rect:
+        serializedVersion: 2
+        x: 176
+        y: 176
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c886f30ef75867f4496577e4314ef0e3
+      internalID: 446953572
       vertices: []
       indices: 
       edges: []
@@ -170,6 +192,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
+      PauseButton: 446953572
       button UI_0: -3445762499347083884
       button UI_1: 2107330783
   mipmapLimitGroupName: 
