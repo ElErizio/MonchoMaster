@@ -16,5 +16,5 @@ MonoBehaviour:
   displayName: Salchicha
   icon: {fileID: 1517334823771768893, guid: 8f593965e10ded2478bd0d07cc06f284, type: 3}
   category: 2
-  tags: []
   isUnlocked: 0
+  card: {fileID: 6858478619556849841, guid: 20ae2dc072e50e1438fe9460ac4fb185, type: 3}
