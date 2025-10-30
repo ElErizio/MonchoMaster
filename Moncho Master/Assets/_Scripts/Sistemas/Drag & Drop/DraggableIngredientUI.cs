@@ -38,6 +38,8 @@ public class DraggableIngredientUI : MonoBehaviour, IBeginDragHandler, IDragHand
         _cg.blocksRaycasts = false;
         _cg.alpha = 0.8f;
 
+        icon.color = new Color(1, 1, 1, 1);
+
         if (dragLayer != null) _rect.SetParent(dragLayer, true);
     }
 
@@ -61,5 +63,7 @@ public class DraggableIngredientUI : MonoBehaviour, IBeginDragHandler, IDragHand
         _rect.SetParent(_startParent, true);
         _rect.SetSiblingIndex(_startSibling);
         _rect.position = _startPosition;
+
+        icon.color = new Color(1, 1, 1, 0);
     }
 }

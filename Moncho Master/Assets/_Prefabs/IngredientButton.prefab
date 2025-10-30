@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4719928282779668494}
   - component: {fileID: 8119133447928950565}
   - component: {fileID: 4747863198141783094}
+  - component: {fileID: 6704903272411200140}
   m_Layer: 0
   m_Name: IngredientButton
   m_TagString: Untagged
@@ -111,3 +112,16 @@ MonoBehaviour:
   group: {fileID: 0}
   hideWhenLocked: 0
   lockedAlpha: 0.4
+--- !u!114 &6704903272411200140
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 571197844521943878}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 974640c6a57bd7c44973d99043a14698, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::IngredientSource
+  ingredient: {fileID: 0}

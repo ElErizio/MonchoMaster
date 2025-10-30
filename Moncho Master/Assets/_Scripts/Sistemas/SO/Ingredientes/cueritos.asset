@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::IngredientSO
   id: cueritos
   displayName: Cueritos
-  icon: {fileID: 2159124277044828066, guid: 8f593965e10ded2478bd0d07cc06f284, type: 3}
+  icon: {fileID: 7318961117069948960, guid: 3d2574f103d95e64c9c5fd0ed7c2748e, type: 3}
   category: 2
   isUnlocked: 0
   card: {fileID: 8712243536028850684, guid: 20ae2dc072e50e1438fe9460ac4fb185, type: 3}
