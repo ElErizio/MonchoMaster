@@ -69,8 +69,6 @@ public class LoteriaHUD : MonoBehaviour
         }
 
         var cells = loteria.Snapshot;
-       
-
         Transform parent = gridRoot != null ? gridRoot : transform;
 
         int created = 0;
@@ -91,7 +89,8 @@ public class LoteriaHUD : MonoBehaviour
             if (unlocks != null && !string.IsNullOrEmpty(cells[i].ingredientId))
             {
                 var ing = unlocks.FindById(cells[i].ingredientId);
-                if (ing != null) sp = ing.Icon;
+                if (ing != null)
+                    sp = ing.Card;
             }
 
             ui.Bind(sp, cells[i].marked);
@@ -99,4 +98,5 @@ public class LoteriaHUD : MonoBehaviour
 
         Debug.Log("[LoteriaHUD] Celdas instanciadas: " + created, this);
     }
+
 }

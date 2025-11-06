@@ -15,9 +15,27 @@ public class UnlockService : MonoBehaviour
     [SerializeField] private string prefsKey = "MM_IngredientUnlocks";
 
     private HashSet<string> _unlocked = new HashSet<string>();
+    private Dictionary<string, IngredientSO> ingredientsById;
+
 
     public delegate void UnlocksChanged();
     public event UnlocksChanged OnUnlocksChanged;
+
+    public Sprite GetIngredientCard(string ingredientId)
+    {
+        return ingredientsById != null
+            && ingredientsById.TryGetValue(ingredientId, out var so)
+            ? so.Card
+            : null;
+    }
+
+    public Sprite GetIngredientIcon(string ingredientId)
+    {
+        return ingredientsById != null
+            && ingredientsById.TryGetValue(ingredientId, out var so)
+            ? so.Icon
+            : null;
+    }
 
     private void Awake()
     {

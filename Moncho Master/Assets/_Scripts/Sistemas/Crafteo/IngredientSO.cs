@@ -5,10 +5,10 @@ public class IngredientSO : ScriptableObject
 {
     [SerializeField] private string id;
     [SerializeField] private string displayName;
+    [SerializeField] private Sprite card;
     [SerializeField] private Sprite icon;
     [SerializeField] private IngredientCategory category;
     [SerializeField] private bool isUnlocked = true;
-    [SerializeField] private Sprite card;
 
     public string Id => id;
     public string DisplayName => displayName;
