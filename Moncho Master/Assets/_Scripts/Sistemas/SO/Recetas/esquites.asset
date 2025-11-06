@@ -23,7 +23,7 @@ MonoBehaviour:
   orderMatters: 0
   exactIngredients:
   - ingredient: {fileID: 11400000, guid: a1b56ea12fe9d70408f2c784c9b045d0, type: 2}
-    quantity: 3
+    quantity: 0
   - ingredient: {fileID: 11400000, guid: 8f94e150205bb344eade812e52e292cb, type: 2}
     quantity: 0
   - ingredient: {fileID: 11400000, guid: e04cc0200fb5bb94b9e7a9f79fe992bc, type: 2}
