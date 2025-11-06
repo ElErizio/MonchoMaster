@@ -33,10 +33,10 @@ public class LoteriaService : MonoBehaviour
         BuildBoard();
     }
     void OnEnable() {
-        //if (crafting != null) crafting.OnDishDelivered += HandleDelivered;
+        if (crafting != null) crafting.OnDishDelivered += HandleDelivered;
     }
     void OnDisable() {
-        //if (crafting != null) crafting.OnDishDelivered -= HandleDelivered;
+        if (crafting != null) crafting.OnDishDelivered -= HandleDelivered;
     }
 
     public void OnCraftingDishDelivered(CraftingManager.DeliveryPayload payload)

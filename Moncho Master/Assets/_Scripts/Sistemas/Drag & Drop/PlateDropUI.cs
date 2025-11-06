@@ -8,8 +8,8 @@ public class PlateDropUI : MonoBehaviour, IDropHandler
     [SerializeField] private PlateContainer plate;
 
     [Header("Visual")]
-    [SerializeField] private RectTransform stackRoot;   // ASÍGNALO EN INSPECTOR
-    [SerializeField] private Image ingredientPrefab;         // ASSETS/PREFAB UI Image
+    [SerializeField] private RectTransform stackRoot;
+    [SerializeField] private Image ingredientPrefab;
     [SerializeField] private Vector2 stackOffset = new Vector2(0f, 20f);
 
     [Header("Debug")]
@@ -25,7 +25,6 @@ public class PlateDropUI : MonoBehaviour, IDropHandler
             return;
         }
 
-        // Toma el IngredientSource del objeto arrastrado (o de algún padre)
         var src = eventData.pointerDrag.GetComponentInParent<IngredientSource>();
         if (src == null || src.Ingredient == null)
         {
@@ -33,27 +32,12 @@ public class PlateDropUI : MonoBehaviour, IDropHandler
             return;
         }
 
-        // Validación del modelo
         if (plate == null)
         {
             if (logDebug) Debug.LogWarning("[PlateDropUI] plate NO asignado");
             return;
         }
-        if (!plate.TryAdd(src.Ingredient))
-        {
-#if UNITY_EDITOR
-            if (!plate.CanAcceptWithReason(src.Ingredient, out var why))
-                Debug.LogWarning($"[PlateDropUI] TryAdd rechazó: {why}");
-            else
-                Debug.LogWarning("[PlateDropUI] TryAdd rechazó sin razón aparente (¿cambios de estado de concurrencia?)");
-#else
-    Debug.LogWarning("[PlateDropUI] TryAdd rechazó el ingrediente");
-#endif
-            return;
-        }
 
-
-        // Visual
         if (ingredientPrefab == null || stackRoot == null)
         {
             if (logDebug) Debug.LogWarning("[PlateDropUI] imagePrefab o stackRoot NO asignados");
@@ -69,9 +53,8 @@ public class PlateDropUI : MonoBehaviour, IDropHandler
 
         var img = Instantiate(ingredientPrefab, stackRoot);
         img.sprite = icon;
-        // img.SetNativeSize(); // opcional
 
-        int index = stackRoot.childCount - 1; // recién creado queda al final
+        int index = stackRoot.childCount - 1;
         var rt = img.rectTransform;
         rt.anchoredPosition = stackOffset * index;
         rt.localScale = Vector3.one;
@@ -79,7 +62,6 @@ public class PlateDropUI : MonoBehaviour, IDropHandler
         if (logDebug) Debug.Log($"[PlateDropUI] Instancié capa {index} con {icon.name}");
     }
 
-    // ——— Utilidad: reconstruir visual desde el modelo (si limpiaste o cambió algo) ———
     [ContextMenu("Rebuild From Model")]
     public void RebuildFromModel()
     {
