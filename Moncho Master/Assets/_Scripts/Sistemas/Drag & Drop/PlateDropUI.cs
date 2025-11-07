@@ -4,6 +4,8 @@ using UnityEngine.UI;
 
 public class PlateDropUI : MonoBehaviour, IDropHandler
 {
+    //Punto safe
+
     [Header("Modelo")]
     [SerializeField] private PlateContainer plate;
 
@@ -15,64 +17,47 @@ public class PlateDropUI : MonoBehaviour, IDropHandler
     [Header("Debug")]
     [SerializeField] private bool logDebug = true;
 
-    public void OnDrop(PointerEventData eventData)
+    private void OnEnable()
     {
-        if (logDebug) Debug.Log("[PlateDropUI] OnDrop");
-
-        if (eventData.pointerDrag == null)
-        {
-            if (logDebug) Debug.LogWarning("[PlateDropUI] pointerDrag es null");
-            return;
-        }
-
-        var src = eventData.pointerDrag.GetComponentInParent<IngredientSource>();
-        if (src == null || src.Ingredient == null)
-        {
-            if (logDebug) Debug.LogWarning("[PlateDropUI] No encontré IngredientSource/IngredientSO en el drag");
-            return;
-        }
-
-        if (plate == null)
-        {
-            if (logDebug) Debug.LogWarning("[PlateDropUI] plate NO asignado");
-            return;
-        }
-
-        if (ingredientPrefab == null || stackRoot == null)
-        {
-            if (logDebug) Debug.LogWarning("[PlateDropUI] imagePrefab o stackRoot NO asignados");
-            return;
-        }
-
-        var icon = src.Ingredient.Icon;
-        if (icon == null)
-        {
-            if (logDebug) Debug.LogWarning("[PlateDropUI] El IngredientSO no tiene Icon");
-            return;
-        }
-
-        var img = Instantiate(ingredientPrefab, stackRoot);
-        img.sprite = icon;
-
-        int index = stackRoot.childCount - 1;
-        var rt = img.rectTransform;
-        rt.anchoredPosition = stackOffset * index;
-        rt.localScale = Vector3.one;
-
-        if (logDebug) Debug.Log($"[PlateDropUI] Instancié capa {index} con {icon.name}");
+        if (plate != null) plate.OnContentChanged += RebuildFromModel;
+        RebuildFromModel();
     }
 
-    [ContextMenu("Rebuild From Model")]
+    private void OnDisable()
+    {
+        if (plate != null) plate.OnContentChanged -= RebuildFromModel;
+    }
+
+
+    public void OnDrop(PointerEventData eventData)
+    {
+        if (eventData.pointerDrag == null) return;
+
+        var src = eventData.pointerDrag.GetComponentInParent<IngredientSource>();
+        if (src == null || src.Ingredient == null) return;
+        if (plate == null) return;
+
+        string reason;
+        if (!plate.TryAdd(src.Ingredient, out reason))
+        {
+            if (logDebug) Debug.LogWarning($"[PlateDropUI] TryAdd rechazó: {reason}");
+            return;
+        }
+    }
+
     public void RebuildFromModel()
     {
         if (plate == null || stackRoot == null || ingredientPrefab == null) return;
 
         for (int i = stackRoot.childCount - 1; i >= 0; i--)
-            DestroyImmediate(stackRoot.GetChild(i).gameObject);
+            Destroy(stackRoot.GetChild(i).gameObject);
 
-        for (int i = 0; i < plate.Items.Count; i++)
+        var items = plate.Items;
+        if (items == null) return;
+
+        for (int i = 0; i < items.Count; i++)
         {
-            var ing = plate.Items[i];
+            var ing = items[i];
             if (ing == null || ing.Icon == null) continue;
 
             var img = Instantiate(ingredientPrefab, stackRoot);
@@ -81,8 +66,5 @@ public class PlateDropUI : MonoBehaviour, IDropHandler
             rt.anchoredPosition = stackOffset * i;
             rt.localScale = Vector3.one;
         }
-
-        if (logDebug) Debug.Log("[PlateDropUI] RebuildFromModel completado");
     }
-
 }

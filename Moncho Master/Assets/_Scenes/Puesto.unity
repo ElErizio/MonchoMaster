@@ -1482,7 +1482,7 @@ GameObject:
   - component: {fileID: 313541062}
   - component: {fileID: 313541064}
   m_Layer: 5
-  m_Name: Ordenes
+  m_Name: OrdenesUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2715,8 +2715,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 30
-  m_fontSizeBase: 30
+  m_fontSize: 28
+  m_fontSizeBase: 28
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -3008,12 +3008,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e6eb490efad6944d9bac44b1bbde4db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlateContainer
-  capacity: 12
-  allowDuplicates: 1
+  capacity: 10
+  allowDuplicates: 0
   categoryLimits:
   - category: 0
     min: 1
-    max: 3
+    max: 1
   - category: 1
     min: 0
     max: 6
@@ -4119,7 +4119,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -134.11804, y: 0, z: -146.48962, w: 0}
+  m_margin: {x: -249.52557, y: -45.68213, z: -266.7058, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -5560,11 +5560,18 @@ MonoBehaviour:
   salsaOptions:
   - {fileID: 0}
   - {fileID: 11400000, guid: 8f94e150205bb344eade812e52e292cb, type: 2}
-  - {fileID: 11400000, guid: 233e0267a69193547a91d41f46463148, type: 2}
+  - {fileID: 11400000, guid: f9c3cb4fa3c2db248ac590c61bb097e4, type: 2}
+  - {fileID: 11400000, guid: 412d02ff5bd433c4c9f0fd4af645db11, type: 2}
+  - {fileID: 11400000, guid: 1cd648b5339ed0342a0daf6e243536d5, type: 2}
+  - {fileID: 11400000, guid: d9077a67cb4c2b447b02ded0bf4fe0c8, type: 2}
+  - {fileID: 11400000, guid: d24e41b60ee566c46a0f6c99f91ff0d6, type: 2}
   toppingOptions:
   - {fileID: 0}
   - {fileID: 11400000, guid: e04cc0200fb5bb94b9e7a9f79fe992bc, type: 2}
-  - {fileID: 11400000, guid: f9c3cb4fa3c2db248ac590c61bb097e4, type: 2}
+  - {fileID: 11400000, guid: 3c61919069a331e41a966ba6b8a164be, type: 2}
+  - {fileID: 11400000, guid: c2aa9d6dfdaa47a49a344009b6eb32cc, type: 2}
+  - {fileID: 11400000, guid: 3510bd72cdd2b3c43bc6cace43ef484c, type: 2}
+  - {fileID: 11400000, guid: 233e0267a69193547a91d41f46463148, type: 2}
   minSalsas: 0
   maxSalsas: 3
   minToppings: 1
@@ -6481,7 +6488,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlateDropTarget
   plate: {fileID: 760744856}
-  highlight: {fileID: 0}
 --- !u!114 &1955851085
 MonoBehaviour:
   m_ObjectHideFlags: 0

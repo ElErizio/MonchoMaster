@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::IngredientSO
   id: salchipulpo
   displayName: Salchipulpo
-  icon: {fileID: -5534022961304959566, guid: 3d2574f103d95e64c9c5fd0ed7c2748e, type: 3}
-  category: 2
-  isUnlocked: 0
   card: {fileID: 4449628327591836472, guid: 20ae2dc072e50e1438fe9460ac4fb185, type: 3}
+  icon: {fileID: -5534022961304959566, guid: 3d2574f103d95e64c9c5fd0ed7c2748e, type: 3}
+  category: 0
+  isUnlocked: 0

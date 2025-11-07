@@ -17,9 +17,15 @@ public class PlateContainer : MonoBehaviour
     [SerializeField] private bool allowDuplicates = true;
     [SerializeField] private List<CategoryLimit> categoryLimits = new List<CategoryLimit>();
     [SerializeField] private bool locked = false;
+    private int _lastAddFrame = -1;
+    private string _lastAddId = null;
+
+    // Safe point
+
+    [SerializeField] private UnlockService unlocks;
+    public void SetUnlockService(UnlockService svc) => unlocks = svc;
     public bool IsLocked { get { return locked; } }
     public void SetLocked(bool value) { locked = value; }
-
     private readonly List<IngredientSO> _items = new List<IngredientSO>();
     public event Action OnContentChanged;
 
@@ -30,17 +36,37 @@ public class PlateContainer : MonoBehaviour
         if (capacity < 0) capacity = 0;
     }
 
+    private bool IsIngredientUnlocked(IngredientSO ing)
+    {
+        if (ing == null) return false;
+        if (unlocks != null) return unlocks.IsUnlocked(ing);
+        return ing.IsUnlocked;
+    }
+
     public bool CanAccept(IngredientSO ing)
     {
-        if (locked) return false;
-        if (ing == null) return false;
-        if (!ing.IsUnlocked) return false;
-        if (_items.Count >= capacity) return false;
+        string _;
+        return CanAcceptWithReason(ing, out _);
+    }
+
+    public bool CanAcceptWithReason(IngredientSO ing, out string reason)
+    {
+        if (locked) { reason = "Plato bloqueado (locked == true)"; return false; }
+        if (ing == null) { reason = "IngredientSO es null"; return false; }
+
+        if (!IsIngredientUnlocked(ing))
+        {
+            reason = $"'{ing.Id}' está bloqueado";
+            return false;
+        }
+
+        if (_items.Count >= capacity) { reason = $"Capacidad llena: {_items.Count}/{capacity}"; return false; }
 
         if (!allowDuplicates)
         {
             for (int i = 0; i < _items.Count; i++)
-                if (ReferenceEquals(_items[i], ing)) return false;
+                if (ReferenceEquals(_items[i], ing))
+                { reason = $"Duplicado no permitido de '{ing.Id}' (allowDuplicates == false)"; return false; }
         }
 
         int countCat = 0;
@@ -52,34 +78,59 @@ public class PlateContainer : MonoBehaviour
             if (categoryLimits[i].category == ing.Category)
             {
                 int max = categoryLimits[i].max;
-                if (max > 0 && (countCat + 1) > max) return false;
+                if (max > 0 && (countCat + 1) > max)
+                {
+                    reason = $"Límite de categoría excedido: {ing.Category} ({countCat + 1}/{max})";
+                    return false;
+                }
                 break;
             }
         }
 
+        reason = null;
         return true;
     }
+
 
     public bool TryAdd(IngredientSO ing)
     {
         if (!CanAccept(ing)) return false;
         _items.Add(ing);
-        var h = OnContentChanged; if (h != null) h();
+        OnContentChanged?.Invoke();
+        return true;
+    }
+
+    public bool TryAdd(IngredientSO ing, out string reason)
+    {
+        if (!CanAcceptWithReason(ing, out reason)) return false;
+
+        // Debounce: bloquea segundo intento del mismo ingrediente en el mismo frame
+        int f = Time.frameCount;
+        string id = ing != null ? ing.Id : "NULL";
+        if (f == _lastAddFrame && id == _lastAddId)
+        {
+            reason = "Intento duplicado en el mismo frame";
+            return false;
+        }
+        _lastAddFrame = f; _lastAddId = id;
+
+        _items.Add(ing);
+        OnContentChanged?.Invoke();
         return true;
     }
 
     public bool Remove(IngredientSO ing)
     {
         bool removed = _items.Remove(ing);
-        if (removed) { var h = OnContentChanged; if (h != null) h(); }
+        if (removed) OnContentChanged?.Invoke();
         return removed;
     }
 
+
     public void Clear()
     {
-        if (_items.Count == 0) return;
         _items.Clear();
-        var h = OnContentChanged; if (h != null) h();
+        OnContentChanged?.Invoke();
     }
 
     public string GetNormalizedKey()
@@ -124,44 +175,4 @@ public class PlateContainer : MonoBehaviour
         CategoryLimit cl = new CategoryLimit { category = cat, min = min, max = max };
         if (idx >= 0) categoryLimits[idx] = cl; else categoryLimits.Add(cl);
     }
-#if UNITY_EDITOR
-    public bool CanAcceptWithReason(IngredientSO ing, out string reason)
-    {
-        if (locked) { reason = "Plato bloqueado (locked == true)"; return false; }
-        if (ing == null) { reason = "IngredientSO es null"; return false; }
-        if (!ing.IsUnlocked) { reason = $"'{ing.Id}' está bloqueado (IsUnlocked == false)"; return false; }
-        if (_items.Count >= capacity) { reason = $"Capacidad llena: {_items.Count}/{capacity}"; return false; }
-
-        // Duplicados
-        if (!allowDuplicates)
-        {
-            for (int i = 0; i < _items.Count; i++)
-                if (ReferenceEquals(_items[i], ing))
-                { reason = $"Duplicado no permitido de '{ing.Id}' (allowDuplicates == false)"; return false; }
-        }
-
-        // Conteo por categoría y límites
-        int countCat = 0;
-        for (int i = 0; i < _items.Count; i++)
-            if (_items[i].Category == ing.Category) countCat++;
-
-        for (int i = 0; i < categoryLimits.Count; i++)
-        {
-            if (categoryLimits[i].category == ing.Category)
-            {
-                int max = categoryLimits[i].max;
-                if (max > 0 && (countCat + 1) > max)
-                {
-                    reason = $"Límite de categoría excedido: {ing.Category} ({countCat + 1}/{max})";
-                    return false;
-                }
-                break;
-            }
-        }
-
-        reason = null;
-        return true;
-    }
-#endif
-
 }

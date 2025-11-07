@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TutorialStep
   id: confirm_order
   title: Confirma el pedido
-  body: "Presiona el bot\xF3n Confirmar para entregar el platillo."
+  body: "Presiona el bot\xF3n verde para entregar el platillo."
   image: {fileID: 0}
   completeMode: 2
   seconds: 2
   key: 32
-  eventName: 
+  eventName: PedidoEntregado
   pauseGameplay: 0
