@@ -20,8 +20,6 @@ public class PlateContainer : MonoBehaviour
     private int _lastAddFrame = -1;
     private string _lastAddId = null;
 
-    // Safe point
-
     [SerializeField] private UnlockService unlocks;
     public void SetUnlockService(UnlockService svc) => unlocks = svc;
     public bool IsLocked { get { return locked; } }

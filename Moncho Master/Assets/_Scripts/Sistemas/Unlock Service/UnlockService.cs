@@ -164,7 +164,7 @@ public class UnlockService : MonoBehaviour
 
     private System.Collections.IEnumerator NotifyReadyNextFrame()
     {
-        yield return null; // 1 frame
+        yield return null;
         var h = OnUnlocksChanged; if (h != null) h();
     }
 }

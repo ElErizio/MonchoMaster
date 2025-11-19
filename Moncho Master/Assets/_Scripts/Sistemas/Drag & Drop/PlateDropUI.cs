@@ -4,8 +4,6 @@ using UnityEngine.UI;
 
 public class PlateDropUI : MonoBehaviour, IDropHandler
 {
-    //Punto safe
-
     [Header("Modelo")]
     [SerializeField] private PlateContainer plate;
 
