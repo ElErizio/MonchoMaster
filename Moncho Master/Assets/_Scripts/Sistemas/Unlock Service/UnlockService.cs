@@ -1,8 +1,9 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 [DisallowMultipleComponent]
-
 [DefaultExecutionOrder(-200)]
 public class UnlockService : MonoBehaviour
 {
@@ -17,9 +18,23 @@ public class UnlockService : MonoBehaviour
     private HashSet<string> _unlocked = new HashSet<string>();
     private Dictionary<string, IngredientSO> ingredientsById;
 
-
     public delegate void UnlocksChanged();
     public event UnlocksChanged OnUnlocksChanged;
+
+    public int UnlockedCount => _unlocked.Count;
+    public int TotalIngredients => ingredientsById?.Count ?? 0;
+    public float Progress => TotalIngredients > 0 ? (float)UnlockedCount / TotalIngredients : 0f;
+
+    private void Awake()
+    {
+        InitializeDictionary();
+        LoadState();
+    }
+
+    private void Start()
+    {
+        StartCoroutine(NotifyReadyNextFrame());
+    }
 
     public Sprite GetIngredientCard(string ingredientId)
     {
@@ -37,42 +52,40 @@ public class UnlockService : MonoBehaviour
             : null;
     }
 
-    private void Awake()
+    private void InitializeDictionary()
     {
-        LoadState();
+        ingredientsById = new Dictionary<string, IngredientSO>();
+        foreach (var ing in allIngredients ?? Array.Empty<IngredientSO>())
+        {
+            if (ing != null && !string.IsNullOrEmpty(ing.Id))
+                ingredientsById[ing.Id] = ing;
+        }
     }
-
-    private void Start()
-    {
-        StartCoroutine(NotifyReadyNextFrame());
-    }
-
 
     private void LoadState()
     {
         _unlocked.Clear();
+
         if (usePlayerPrefs && PlayerPrefs.HasKey(prefsKey))
         {
             string csv = PlayerPrefs.GetString(prefsKey, "");
             if (!string.IsNullOrEmpty(csv))
             {
                 string[] parts = csv.Split(',');
-                for (int i = 0; i < parts.Length; i++)
+                foreach (string id in parts)
                 {
-                    string id = parts[i];
-                    if (!string.IsNullOrEmpty(id)) _unlocked.Add(id);
+                    string trimmedId = id.Trim();
+                    if (!string.IsNullOrEmpty(trimmedId) && ingredientsById.ContainsKey(trimmedId))
+                        _unlocked.Add(trimmedId);
                 }
             }
         }
         else
         {
-            if (initiallyUnlocked != null)
+            foreach (var ing in initiallyUnlocked ?? Array.Empty<IngredientSO>())
             {
-                for (int i = 0; i < initiallyUnlocked.Length; i++)
-                {
-                    var ing = initiallyUnlocked[i];
-                    if (ing != null && !string.IsNullOrEmpty(ing.Id)) _unlocked.Add(ing.Id);
-                }
+                if (ing != null && !string.IsNullOrEmpty(ing.Id) && ingredientsById.ContainsKey(ing.Id))
+                    _unlocked.Add(ing.Id);
             }
         }
     }
@@ -101,25 +114,46 @@ public class UnlockService : MonoBehaviour
     public bool Unlock(IngredientSO ing)
     {
         if (ing == null || string.IsNullOrEmpty(ing.Id)) return false;
+        if (!ingredientsById.ContainsKey(ing.Id))
+        {
+            Debug.LogWarning($"[Unlocks] Intento de desbloquear ingrediente no catalogado: {ing.Id}");
+            return false;
+        }
+
         if (_unlocked.Contains(ing.Id)) return false;
+
         _unlocked.Add(ing.Id);
         SaveState();
-        var h = OnUnlocksChanged; if (h != null) h();
-        Debug.Log("[Unlocks] Desbloqueado: " + ing.Id, ing);
+        OnUnlocksChanged?.Invoke();
+        Debug.Log($"[Unlocks] Desbloqueado: {ing.Id} ({_unlocked.Count}/{TotalIngredients})", ing);
         return true;
+    }
+
+    private void OnValidate()
+    {
+        if (allIngredients != null)
+        {
+            var ids = new HashSet<string>();
+            foreach (var ing in allIngredients)
+            {
+                if (ing != null && !string.IsNullOrEmpty(ing.Id))
+                {
+                    if (ids.Contains(ing.Id))
+                        Debug.LogError($"ID duplicado encontrado: {ing.Id}", this);
+                    else
+                        ids.Add(ing.Id);
+                }
+            }
+        }
     }
 
     public IngredientSO GetRandomLocked()
     {
         List<IngredientSO> locked = new List<IngredientSO>();
-        if (allIngredients != null)
+        foreach (var kvp in ingredientsById)
         {
-            for (int i = 0; i < allIngredients.Length; i++)
-            {
-                var ing = allIngredients[i];
-                if (ing == null || string.IsNullOrEmpty(ing.Id)) continue;
-                if (!_unlocked.Contains(ing.Id)) locked.Add(ing);
-            }
+            var ing = kvp.Value;
+            if (!_unlocked.Contains(ing.Id)) locked.Add(ing);
         }
         if (locked.Count == 0) return null;
         int idx = UnityEngine.Random.Range(0, locked.Count);
@@ -140,26 +174,30 @@ public class UnlockService : MonoBehaviour
 
     public IngredientSO FindById(string id)
     {
-        if (string.IsNullOrEmpty(id) || allIngredients == null) return null;
-        for (int i = 0; i < allIngredients.Length; i++)
-        {
-            var ing = allIngredients[i];
-            if (ing != null && ing.Id == id) return ing;
-        }
-        return null;
+        if (string.IsNullOrEmpty(id) || ingredientsById == null) return null;
+        ingredientsById.TryGetValue(id, out var result);
+        return result;
     }
 
     [ContextMenu("Reset to Initially Unlocked (Editor)")]
     private void ResetToInitiallyUnlocked()
     {
-        _unlocked.Clear();
-        if (initiallyUnlocked != null)
-            for (int i = 0; i < initiallyUnlocked.Length; i++)
-                if (initiallyUnlocked[i] != null && !string.IsNullOrEmpty(initiallyUnlocked[i].Id))
-                    _unlocked.Add(initiallyUnlocked[i].Id);
-        SaveState();
-        var h = OnUnlocksChanged; if (h != null) h();
-        Debug.Log("[Unlocks] Reset a iniciales.");
+        #if UNITY_EDITOR
+                _unlocked.Clear();
+                foreach (var ing in initiallyUnlocked ?? Array.Empty<IngredientSO>())
+                {
+                    if (ing != null && !string.IsNullOrEmpty(ing.Id))
+                        _unlocked.Add(ing.Id);
+                }
+                SaveState();
+                OnUnlocksChanged?.Invoke();
+                Debug.Log($"[Unlocks] Reset a {_unlocked.Count} ingredientes iniciales.");
+        #endif
+    }
+
+    public IReadOnlyCollection<string> GetUnlockedIds()
+    {
+        return _unlocked.ToList().AsReadOnly();
     }
 
     private System.Collections.IEnumerator NotifyReadyNextFrame()
