@@ -10,7 +10,7 @@ public class OrderItemTokenUI : MonoBehaviour
     {
         if (icon != null && ing != null)
         {
-            icon.sprite = ing.Icon;
+            icon.sprite = ing.Card;
             icon.preserveAspect = true;
             icon.enabled = (icon.sprite != null);
         }

@@ -5,7 +5,7 @@ public class CreditsRoller : MonoBehaviour
 {
     [Header("Configuración")]
     public float speed = 50f;
-    public string mainMenuSceneName = "MainMenu";
+    public string mainMenuSceneName = "Main Menu";
     public float endPositionY = 1500f;
 
     [Header("Referencias")]

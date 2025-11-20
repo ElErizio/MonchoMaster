@@ -1,5 +1,7 @@
 using System;
 using UnityEngine;
+using System.Collections.Generic;
+using UnityEngine.UI;
 
 namespace Moncho.Orders
 {
@@ -8,11 +10,18 @@ namespace Moncho.Orders
         [Header("Refs")]
         [SerializeField] private CraftingManager crafting;
         [SerializeField] private UnlockService unlocks;
+        [SerializeField] private GameManager gameManager;
 
         [Header("Pools de ingredientes permitidos")]
         [SerializeField] private IngredientSO[] baseOptions;
         [SerializeField] private IngredientSO[] salsaOptions;
         [SerializeField] private IngredientSO[] toppingOptions;
+
+        [Header("Clientes - Sistema con Prefabs")]
+        [SerializeField] private RectTransform clientContainer;
+        [SerializeField] private GameObject[] clientPrefabs;
+        [SerializeField] private Vector2 clientPosition = Vector2.zero;
+        [SerializeField] private bool showClientOnStart = true;
 
         [Header("Reglas de pedido")]
         [SerializeField] private int minSalsas = 1;
@@ -36,179 +45,340 @@ namespace Moncho.Orders
         }
 
         private OrderSpec _current;
+        private int _currentClientIndex = -1;
+        private GameObject _currentClientInstance;
+        private bool _isInitialized = false;
 
         public delegate void OrderEvent(OrderSpec spec);
         public event OrderEvent OnOrderChanged;
         public event OrderEvent OnOrderFulfilled;
         public event OrderEvent OnOrderFailed;
 
-        public OrderSpec CurrentOrder { get { return _current; } }
+        public OrderSpec CurrentOrder => _current;
+
+        private void Awake()
+        {
+            // Limpiar cualquier cliente existente al inicio
+            ClearCurrentClient();
+        }
+
+        private void Start()
+        {
+            InitializeService();
+        }
+
+        private void InitializeService()
+        {
+            if (_isInitialized) return;
+
+            // Asegurar que tenemos las referencias necesarias
+            if (gameManager == null)
+                gameManager = GameManager.Instance;
+
+            if (showClientOnStart)
+            {
+                GenerateNextOrder();
+            }
+
+            _isInitialized = true;
+        }
 
         private void OnEnable()
         {
-            if (crafting != null) crafting.OnDishDelivered += HandleDelivered;
-            GenerateNextOrder();
+            if (crafting != null)
+                crafting.OnDishDelivered += HandleDelivered;
+
+            // Si ya está inicializado, forzar una actualización del cliente
+            if (_isInitialized && _currentClientInstance == null)
+            {
+                GenerateNextOrder();
+            }
         }
+
         private void OnDisable()
         {
-            if (crafting != null) crafting.OnDishDelivered -= HandleDelivered;
+            if (crafting != null)
+                crafting.OnDishDelivered -= HandleDelivered;
+        }
+
+        private void ClearCurrentClient()
+        {
+            if (_currentClientInstance != null)
+            {
+                // Usar DestroyImmediate si estamos en modo edición o para limpieza inmediata
+                if (Application.isPlaying)
+                    Destroy(_currentClientInstance);
+                else
+                    DestroyImmediate(_currentClientInstance);
+
+                _currentClientInstance = null;
+            }
+
+            // Limpiar también hijos del contenedor por si acaso
+            if (clientContainer != null && Application.isPlaying)
+            {
+                foreach (Transform child in clientContainer)
+                {
+                    Destroy(child.gameObject);
+                }
+            }
         }
 
         public void GenerateNextOrder()
         {
             if (!ValidatePools()) return;
 
-            IngredientSO[] basePool = (unlocks != null) ? unlocks.FilterUnlocked(baseOptions) : baseOptions;
-            IngredientSO[] salsaPool = (unlocks != null) ? unlocks.FilterUnlocked(salsaOptions) : salsaOptions;
-            IngredientSO[] toppingPool = (unlocks != null) ? unlocks.FilterUnlocked(toppingOptions) : toppingOptions;
+            IngredientSO[] basePool = unlocks?.FilterUnlocked(baseOptions) ?? baseOptions;
+            IngredientSO[] salsaPool = unlocks?.FilterUnlocked(salsaOptions) ?? salsaOptions;
+            IngredientSO[] toppingPool = unlocks?.FilterUnlocked(toppingOptions) ?? toppingOptions;
 
-            if (basePool == null || basePool.Length == 0)
-            {
-                Debug.LogWarning("[Orders] No hay bases desbloqueadas. Revisa UnlockService.initiallyUnlocked.", this);
-                return;
-            }
-            if (salsaPool == null || salsaPool.Length == 0)
-            {
-                Debug.LogWarning("[Orders] No hay salsas desbloqueadas. Revisa UnlockService o la loteria.", this);
-                return;
-            }
-            if (toppingPool == null || toppingPool.Length == 0)
-            {
-                Debug.LogWarning("[Orders] No hay toppings desbloqueados. Revisa UnlockService o la loteria.", this);
-                return;
-            }
+            if (!ValidatePool(basePool, "bases") ||
+                !ValidatePool(salsaPool, "salsas") ||
+                !ValidatePool(toppingPool, "toppings")) return;
 
+            var (salsasCount, toppingsCount) = CalculateIngredientCounts(salsaPool.Length, toppingPool.Length);
+
+            _current = new OrderSpec
+            {
+                baseIng = GetRandomIngredient(basePool),
+                salsas = PickUnique(salsaPool, salsasCount),
+                toppings = PickUnique(toppingPool, toppingsCount)
+            };
+
+            UpdateClient();
+
+            if (debugLogs) Log("Nuevo pedido: " + BuildOrderText(_current));
+            OnOrderChanged?.Invoke(_current);
+
+            gameManager?.OnNewOrderGenerated(_current);
+        }
+
+        private (int salsas, int toppings) CalculateIngredientCounts(int availableSalsas, int availableToppings)
+        {
             int sMin = Mathf.Max(1, minSalsas);
             int tMin = Mathf.Max(1, minToppings);
 
-            int sMaxClamp = Mathf.Clamp(maxSalsas, sMin, salsaPool.Length);
-            int tMaxClamp = Mathf.Clamp(maxToppings, tMin, toppingPool.Length);
+            int sMax = Mathf.Clamp(maxSalsas, sMin, availableSalsas);
+            int tMax = Mathf.Clamp(maxToppings, tMin, availableToppings);
 
-            int maxSAllowed = sMaxClamp;
-            int maxTAllowed = tMaxClamp;
-            int totalMax = 1 + maxSAllowed + maxTAllowed;
-            if (maxItemsPerOrder > 0 && totalMax > maxItemsPerOrder)
+            if (maxItemsPerOrder > 0)
             {
-                int reduce = totalMax - maxItemsPerOrder;
-                while (reduce > 0 && (maxTAllowed > tMin || maxSAllowed > sMin))
+                int totalItems = 1 + sMax + tMax;
+                if (totalItems > maxItemsPerOrder)
                 {
-                    if (maxTAllowed > tMin) { maxTAllowed--; reduce--; }
-                    else if (maxSAllowed > sMin) { maxSAllowed--; reduce--; }
-                    else break;
+                    int excess = totalItems - maxItemsPerOrder;
+                    while (excess > 0 && (sMax > sMin || tMax > tMin))
+                    {
+                        if (tMax > tMin) tMax--;
+                        else if (sMax > sMin) sMax--;
+                        excess--;
+                    }
                 }
             }
 
-            IngredientSO pickBase = basePool[UnityEngine.Random.Range(0, basePool.Length)];
-            int sCount = UnityEngine.Random.Range(sMin, maxSAllowed + 1);
-            int tCount = UnityEngine.Random.Range(tMin, maxTAllowed + 1);
-
-            _current.baseIng = pickBase;
-            _current.salsas = PickUnique(salsaPool, sCount);
-            _current.toppings = PickUnique(toppingPool, tCount);
-
-            if (debugLogs) Log("Nuevo pedido (solo desbloqueados) -> " + BuildOrderText(_current));
-            var ch = OnOrderChanged; if (ch != null) ch(_current);
+            return (
+                UnityEngine.Random.Range(sMin, sMax + 1),
+                UnityEngine.Random.Range(tMin, tMax + 1)
+            );
         }
 
+        private void UpdateClient()
+        {
+            ClearCurrentClient();
 
+            if (clientPrefabs == null || clientPrefabs.Length == 0)
+            {
+                Log("No hay prefabs de clientes asignados");
+                return;
+            }
+
+            if (clientContainer == null)
+            {
+                Log("No hay clientContainer asignado");
+                return;
+            }
+
+            int newIndex;
+            do
+            {
+                newIndex = UnityEngine.Random.Range(0, clientPrefabs.Length);
+            } while (newIndex == _currentClientIndex && clientPrefabs.Length > 1);
+
+            _currentClientIndex = newIndex;
+
+            GameObject selectedPrefab = clientPrefabs[newIndex];
+            if (selectedPrefab != null)
+            {
+                _currentClientInstance = Instantiate(selectedPrefab, clientContainer);
+
+                // Configurar el RectTransform correctamente
+                RectTransform rectTransform = _currentClientInstance.GetComponent<RectTransform>();
+                if (rectTransform != null)
+                {
+                    rectTransform.anchoredPosition = clientPosition;
+                    rectTransform.localScale = Vector3.one;
+                    rectTransform.anchorMin = new Vector2(0.5f, 0.5f);
+                    rectTransform.anchorMax = new Vector2(0.5f, 0.5f);
+                    rectTransform.pivot = new Vector2(0.5f, 0.5f);
+
+                    // Forzar actualización del layout
+                    LayoutRebuilder.ForceRebuildLayoutImmediate(clientContainer);
+                    Canvas.ForceUpdateCanvases();
+                }
+
+                Log($"Cliente cambiado al prefab índice: {newIndex}");
+
+                // Forzar una actualización del frame
+                StartCoroutine(ForceUIUpdateNextFrame());
+            }
+            else
+            {
+                Log($"Prefab de cliente en índice {newIndex} es null");
+            }
+        }
+
+        private System.Collections.IEnumerator ForceUIUpdateNextFrame()
+        {
+            yield return null; // Esperar un frame
+            LayoutRebuilder.ForceRebuildLayoutImmediate(clientContainer);
+            Canvas.ForceUpdateCanvases();
+        }
+
+        // ... (el resto de los métodos se mantienen igual)
         private bool ValidatePools()
         {
-            if (baseOptions == null || baseOptions.Length == 0) { Log("Sin baseOptions."); return false; }
-            if (salsaOptions == null || salsaOptions.Length == 0) { Log("Sin salsaOptions."); return false; }
-            if (toppingOptions == null || toppingOptions.Length == 0) { Log("Sin toppingOptions."); return false; }
+            if (baseOptions == null || baseOptions.Length == 0)
+            {
+                Log("Sin baseOptions.");
+                return false;
+            }
+            if (salsaOptions == null || salsaOptions.Length == 0)
+            {
+                Log("Sin salsaOptions.");
+                return false;
+            }
+            if (toppingOptions == null || toppingOptions.Length == 0)
+            {
+                Log("Sin toppingOptions.");
+                return false;
+            }
             return true;
         }
 
+        private bool ValidatePool(IngredientSO[] pool, string poolName)
+        {
+            if (pool == null || pool.Length == 0)
+            {
+                Log($"No hay {poolName} desbloqueadas.");
+                return false;
+            }
+            return true;
+        }
+
+        private IngredientSO GetRandomIngredient(IngredientSO[] pool) =>
+            pool[UnityEngine.Random.Range(0, pool.Length)];
+
         private IngredientSO[] PickUnique(IngredientSO[] pool, int count)
         {
-            if (pool == null) return new IngredientSO[0];
-            count = Mathf.Clamp(count, 0, pool.Length);
-            IngredientSO[] temp = new IngredientSO[pool.Length];
-            for (int i = 0; i < pool.Length; i++) temp[i] = pool[i];
+            if (pool == null || count <= 0)
+                return Array.Empty<IngredientSO>();
+
+            count = Mathf.Min(count, pool.Length);
+            var list = new List<IngredientSO>(pool);
+            var result = new List<IngredientSO>();
 
             for (int i = 0; i < count; i++)
             {
-                int j = UnityEngine.Random.Range(i, temp.Length);
-                var swap = temp[i]; temp[i] = temp[j]; temp[j] = swap;
+                int randomIndex = UnityEngine.Random.Range(0, list.Count);
+                result.Add(list[randomIndex]);
+                list.RemoveAt(randomIndex);
             }
 
-            IngredientSO[] res = new IngredientSO[count];
-            for (int k = 0; k < count; k++) res[k] = temp[k];
-            return res;
+            return result.ToArray();
         }
 
         private void HandleDelivered(CraftingManager.DeliveryPayload p)
         {
-            bool ok = MatchesOrder(p, _current, allowExtrasOnDelivery);
-            if (ok)
+            bool isOrderCorrect = MatchesOrder(p, _current, allowExtrasOnDelivery);
+
+            if (isOrderCorrect)
             {
                 if (debugLogs) Log("[OK] Pedido cumplido.");
-                var fh = OnOrderFulfilled; if (fh != null) fh(_current);
-                GenerateNextOrder();
+                OnOrderFulfilled?.Invoke(_current);
+                gameManager?.OnOrderCompleted(_current, true);
             }
             else
             {
                 if (debugLogs) Log("[FAIL] Pedido incorrecto.");
-                var ffh = OnOrderFailed; if (ffh != null) ffh(_current);
-                GenerateNextOrder();
+                OnOrderFailed?.Invoke(_current);
+                gameManager?.OnOrderCompleted(_current, false);
             }
+
+            GenerateNextOrder();
         }
 
         private bool MatchesOrder(CraftingManager.DeliveryPayload p, OrderSpec order, bool allowExtras)
         {
-            if (p.ingredientIds == null || p.ingredientIds.Length == 0) return false;
+            if (p.ingredientIds == null || p.ingredientIds.Length == 0)
+                return false;
 
-            string baseId = (order.baseIng != null) ? order.baseIng.Id : null;
-            if (string.IsNullOrEmpty(baseId)) return false;
-            if (!ContainsOnce(p.ingredientIds, baseId)) return false;
+            string baseId = order.baseIng?.Id;
+            if (string.IsNullOrEmpty(baseId) || !ContainsExact(p.ingredientIds, baseId, 1))
+                return false;
 
-            if (order.salsas == null || order.salsas.Length == 0) return false;
-            for (int i = 0; i < order.salsas.Length; i++)
-            {
-                string sid = order.salsas[i] != null ? order.salsas[i].Id : null;
-                if (string.IsNullOrEmpty(sid)) return false;
-                if (!ContainsAtLeastOnce(p.ingredientIds, sid)) return false;
-            }
+            if (!VerifyIngredients(order.salsas, p.ingredientIds))
+                return false;
 
-            if (order.toppings == null || order.toppings.Length == 0) return false;
-            for (int i = 0; i < order.toppings.Length; i++)
-            {
-                string tid = order.toppings[i] != null ? order.toppings[i].Id : null;
-                if (string.IsNullOrEmpty(tid)) return false;
-                if (!ContainsAtLeastOnce(p.ingredientIds, tid)) return false;
-            }
-
-            if (allowExtras) return true;
-
-            int expected = 1 + order.salsas.Length + order.toppings.Length;
-            if (p.ingredientIds.Length != expected) return false;
+            if (!VerifyIngredients(order.toppings, p.ingredientIds))
+                return false;
 
             return true;
         }
 
-        private bool ContainsOnce(string[] arr, string id)
+        private bool VerifyIngredients(IngredientSO[] ingredients, string[] deliveredIds)
         {
-            int c = 0;
-            for (int i = 0; i < arr.Length; i++) if (arr[i] == id) c++;
-            return c == 1;
+            if (ingredients == null) return false;
+
+            foreach (var ingredient in ingredients)
+            {
+                string id = ingredient?.Id;
+                if (string.IsNullOrEmpty(id) || !ContainsAtLeast(deliveredIds, id, 1))
+                    return false;
+            }
+            return true;
         }
-        private bool ContainsAtLeastOnce(string[] arr, string id)
+
+        private bool ContainsExact(string[] arr, string id, int expectedCount)
         {
-            for (int i = 0; i < arr.Length; i++) if (arr[i] == id) return true;
-            return false;
+            int count = 0;
+            foreach (var item in arr)
+                if (item == id) count++;
+
+            return count == expectedCount;
+        }
+
+        private bool ContainsAtLeast(string[] arr, string id, int minCount)
+        {
+            int count = 0;
+            foreach (var item in arr)
+                if (item == id) count++;
+
+            return count >= minCount;
         }
 
         private string BuildOrderText(OrderSpec o)
         {
-            System.Text.StringBuilder sb = new System.Text.StringBuilder();
-            sb.Append("Base=");
-            sb.Append(o.baseIng != null ? o.baseIng.Id : "null");
-            sb.Append(" | Salsas=");
-            if (o.salsas != null) for (int i = 0; i < o.salsas.Length; i++) { sb.Append(i == 0 ? "" : ", "); sb.Append(o.salsas[i] != null ? o.salsas[i].Id : "null"); }
-            sb.Append(" | Toppings=");
-            if (o.toppings != null) for (int i = 0; i < o.toppings.Length; i++) { sb.Append(i == 0 ? "" : ", "); sb.Append(o.toppings[i] != null ? o.toppings[i].Id : "null"); }
-            return sb.ToString();
+            return $"Base={o.baseIng?.Id ?? "null"} | " +
+                   $"Salsas={ArrayToString(o.salsas)} | " +
+                   $"Toppings={ArrayToString(o.toppings)}";
         }
-        private void Log(string m) { Debug.Log("[NPCOrder] " + m, this); }
+
+        private string ArrayToString(IngredientSO[] array)
+        {
+            if (array == null) return "null";
+            return string.Join(", ", System.Array.ConvertAll(array, i => i?.Id ?? "null"));
+        }
+
+        private void Log(string m) => Debug.Log($"[NPCOrder] {m}", this);
     }
 }

@@ -8,7 +8,6 @@ public class NPCOrderHUD : MonoBehaviour
     [SerializeField] private NPCOrderService orderSvc;
     [SerializeField] private GameObject tokenPrefab;
     [SerializeField] private Transform contentRoot;
-    [SerializeField] private Text titleLabel;
 
     private readonly List<GameObject> _spawned = new List<GameObject>();
 
@@ -31,7 +30,6 @@ public class NPCOrderHUD : MonoBehaviour
     private void Rebuild(NPCOrderService.OrderSpec spec)
     {
         Clear();
-        if (titleLabel != null) titleLabel.text = "Pedido";
         if (tokenPrefab == null) return;
 
         Transform parent = contentRoot != null ? contentRoot : transform;

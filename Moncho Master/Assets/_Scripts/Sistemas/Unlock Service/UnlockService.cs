@@ -4,7 +4,6 @@ using System.Linq;
 using UnityEngine;
 
 [DisallowMultipleComponent]
-[DefaultExecutionOrder(-200)]
 public class UnlockService : MonoBehaviour
 {
     [Header("Catálogo")]
@@ -27,6 +26,14 @@ public class UnlockService : MonoBehaviour
 
     private void Awake()
     {
+        var existing = FindFirstObjectByType<UnlockService>(); 
+        if (existing != null && existing != this)
+        {
+            Debug.LogError("Múltiples UnlockServices detectados!", this);
+            Destroy(gameObject);
+            return;
+        }
+
         InitializeDictionary();
         LoadState();
     }
