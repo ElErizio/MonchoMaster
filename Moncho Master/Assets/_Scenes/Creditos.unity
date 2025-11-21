@@ -320,9 +320,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Raquel  Ortega\n\nEric I. Rosas V\xE1zquez\n\nDafne Gamboa\n\nSergio Balvaneda
-    \nDafene Gamboa\n\nCarlos Jimenez\n\nEric I. Rosas\nSergio Balvaneda \n\nSergio
-    Balvaneda"
+  m_text: "Raquel  Ortega\n\nEric I. Rosas\n\nDafne Gamboa\n\nSergio Balvaneda \nDafne
+    Gamboa\n\nCarlos Jimenez\n\nEric I. Rosas\nSergio Balvaneda \n\nSergio Balvaneda"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -893,7 +892,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_text: "Asesora de proyecto\n\nProgramaci\xF3n y Dise\xF1o de Sistemas\n\nDise\xF1o
-    de Personajes\n\nArtistas 2D\n\nM\xFAsica\n\n\nSFX\n\n\nUI"
+    de Personajes\n\nArtistas 2D\n\n\nM\xFAsica\n\nSFX\n\n\nUI"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
