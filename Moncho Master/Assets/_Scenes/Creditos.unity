@@ -128,8 +128,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 80676342}
-  - component: {fileID: 80676341}
-  - component: {fileID: 80676343}
   m_Layer: 0
   m_Name: UIManager
   m_TagString: Untagged
@@ -137,23 +135,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &80676341
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 80676340}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a4cf2f083916a8d4a8e7fb846eb789ab, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::UIManager
-  gameplayScene: Puesto
-  mainMenuScene: Main Menu
-  creditsScene: Creditos
-  optionsPanel: {fileID: 0}
-  pausePanel: {fileID: 0}
 --- !u!4 &80676342
 Transform:
   m_ObjectHideFlags: 0
@@ -169,22 +150,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &80676343
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 80676340}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aeb46dc469b518243beac9abcb1cbd1b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CreditsRoller
-  speed: 50
-  mainMenuSceneName: Main Menu
-  endPositionY: 1500
-  creditsContainer: {fileID: 209845662}
 --- !u!1 &209845661
 GameObject:
   m_ObjectHideFlags: 0
@@ -1206,9 +1171,9 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 2033751940}
+  - {fileID: 1907305113}
   - {fileID: 80676342}
   - {fileID: 1304204714}
   - {fileID: 661944621}
   - {fileID: 575638578}
-  - {fileID: 1907305113}
   - {fileID: 1004803289}
