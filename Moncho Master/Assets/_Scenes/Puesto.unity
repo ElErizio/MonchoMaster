@@ -803,7 +803,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1736a71ba12d8f347910bbf5854133d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LoteriaService
-  unlocks: {fileID: 0}
+  unlocks: {fileID: 2060138950}
   crafting: {fileID: 1955851082}
   rows: 2
   cols: 2
@@ -5952,39 +5952,65 @@ MonoBehaviour:
   crafting: {fileID: 1955851082}
   unlocks: {fileID: 2060138950}
   gameManager: {fileID: 2060138951}
-  baseOptions:
-  - {fileID: 11400000, guid: a1b56ea12fe9d70408f2c784c9b045d0, type: 2}
-  - {fileID: 11400000, guid: f4c2ebc47ca4b8a4bbcee9830ceafcc3, type: 2}
-  - {fileID: 11400000, guid: a1b56ea12fe9d70408f2c784c9b045d0, type: 2}
-  salsaOptions:
-  - {fileID: 0}
-  - {fileID: 11400000, guid: 8f94e150205bb344eade812e52e292cb, type: 2}
-  - {fileID: 11400000, guid: f9c3cb4fa3c2db248ac590c61bb097e4, type: 2}
-  - {fileID: 11400000, guid: 412d02ff5bd433c4c9f0fd4af645db11, type: 2}
-  - {fileID: 11400000, guid: 1cd648b5339ed0342a0daf6e243536d5, type: 2}
-  - {fileID: 11400000, guid: d9077a67cb4c2b447b02ded0bf4fe0c8, type: 2}
-  - {fileID: 11400000, guid: d24e41b60ee566c46a0f6c99f91ff0d6, type: 2}
-  toppingOptions:
-  - {fileID: 0}
-  - {fileID: 11400000, guid: e04cc0200fb5bb94b9e7a9f79fe992bc, type: 2}
-  - {fileID: 11400000, guid: 3c61919069a331e41a966ba6b8a164be, type: 2}
-  - {fileID: 11400000, guid: c2aa9d6dfdaa47a49a344009b6eb32cc, type: 2}
-  - {fileID: 11400000, guid: 3510bd72cdd2b3c43bc6cace43ef484c, type: 2}
-  - {fileID: 11400000, guid: 233e0267a69193547a91d41f46463148, type: 2}
+  specificRecipes:
+  - recipeName: Elote Sencillo
+    requiredIngredients:
+    - {fileID: 11400000, guid: a1b56ea12fe9d70408f2c784c9b045d0, type: 2}
+    - {fileID: 11400000, guid: 8f94e150205bb344eade812e52e292cb, type: 2}
+  - recipeName: Elote Sencillo 2
+    requiredIngredients:
+    - {fileID: 11400000, guid: a1b56ea12fe9d70408f2c784c9b045d0, type: 2}
+    - {fileID: 11400000, guid: e04cc0200fb5bb94b9e7a9f79fe992bc, type: 2}
+  - recipeName: Elote C y Q
+    requiredIngredients:
+    - {fileID: 11400000, guid: a1b56ea12fe9d70408f2c784c9b045d0, type: 2}
+    - {fileID: 11400000, guid: 8f94e150205bb344eade812e52e292cb, type: 2}
+    - {fileID: 11400000, guid: e04cc0200fb5bb94b9e7a9f79fe992bc, type: 2}
+  - recipeName: Elote con Tokio
+    requiredIngredients:
+    - {fileID: 11400000, guid: a1b56ea12fe9d70408f2c784c9b045d0, type: 2}
+    - {fileID: 11400000, guid: 8f94e150205bb344eade812e52e292cb, type: 2}
+    - {fileID: 11400000, guid: e04cc0200fb5bb94b9e7a9f79fe992bc, type: 2}
+    - {fileID: 11400000, guid: f9c3cb4fa3c2db248ac590c61bb097e4, type: 2}
+  - recipeName: Elote con Tokio y Chile
+    requiredIngredients:
+    - {fileID: 11400000, guid: a1b56ea12fe9d70408f2c784c9b045d0, type: 2}
+    - {fileID: 11400000, guid: 8f94e150205bb344eade812e52e292cb, type: 2}
+    - {fileID: 11400000, guid: e04cc0200fb5bb94b9e7a9f79fe992bc, type: 2}
+    - {fileID: 11400000, guid: f9c3cb4fa3c2db248ac590c61bb097e4, type: 2}
+    - {fileID: 11400000, guid: 1cd648b5339ed0342a0daf6e243536d5, type: 2}
+  - recipeName: Salchipulpo
+    requiredIngredients:
+    - {fileID: 11400000, guid: f4c2ebc47ca4b8a4bbcee9830ceafcc3, type: 2}
+    - {fileID: 11400000, guid: 8f94e150205bb344eade812e52e292cb, type: 2}
+    - {fileID: 11400000, guid: 1cd648b5339ed0342a0daf6e243536d5, type: 2}
+  - recipeName: Salchipulpo C y C
+    requiredIngredients:
+    - {fileID: 11400000, guid: f4c2ebc47ca4b8a4bbcee9830ceafcc3, type: 2}
+    - {fileID: 11400000, guid: c2aa9d6dfdaa47a49a344009b6eb32cc, type: 2}
+    - {fileID: 11400000, guid: 1cd648b5339ed0342a0daf6e243536d5, type: 2}
+    - {fileID: 11400000, guid: 8f94e150205bb344eade812e52e292cb, type: 2}
+  - recipeName: Salchipulpo C C y M
+    requiredIngredients:
+    - {fileID: 11400000, guid: f4c2ebc47ca4b8a4bbcee9830ceafcc3, type: 2}
+    - {fileID: 11400000, guid: c2aa9d6dfdaa47a49a344009b6eb32cc, type: 2}
+    - {fileID: 11400000, guid: 1cd648b5339ed0342a0daf6e243536d5, type: 2}
+    - {fileID: 11400000, guid: 8f94e150205bb344eade812e52e292cb, type: 2}
+    - {fileID: 11400000, guid: d24e41b60ee566c46a0f6c99f91ff0d6, type: 2}
+  - recipeName: Salchipulpo C C M M
+    requiredIngredients:
+    - {fileID: 11400000, guid: f4c2ebc47ca4b8a4bbcee9830ceafcc3, type: 2}
+    - {fileID: 11400000, guid: c2aa9d6dfdaa47a49a344009b6eb32cc, type: 2}
+    - {fileID: 11400000, guid: 1cd648b5339ed0342a0daf6e243536d5, type: 2}
+    - {fileID: 11400000, guid: 8f94e150205bb344eade812e52e292cb, type: 2}
+    - {fileID: 11400000, guid: d24e41b60ee566c46a0f6c99f91ff0d6, type: 2}
+    - {fileID: 11400000, guid: f9c3cb4fa3c2db248ac590c61bb097e4, type: 2}
   clientContainer: {fileID: 8465248}
   clientPrefabs:
   - {fileID: 7772036469450930939, guid: d0fdb2ac9cd205f439dd91d8ac3bd451, type: 3}
   - {fileID: 254105128085029211, guid: 535215d97e51c8945b21b34e755cdc3b, type: 3}
   - {fileID: 7062719426428599108, guid: ce4ef0e67bc27ef4293ede083eb4ed13, type: 3}
   - {fileID: 7101889604275155000, guid: 24856b0764a71c34094e6c1d7d8b8529, type: 3}
-  clientPosition: {x: 0, y: 0}
-  showClientOnStart: 1
-  minSalsas: 0
-  maxSalsas: 3
-  minToppings: 1
-  maxToppings: 6
-  allowExtrasOnDelivery: 0
-  maxItemsPerOrder: 10
   debugLogs: 1
 --- !u!4 &1485976497
 Transform:
