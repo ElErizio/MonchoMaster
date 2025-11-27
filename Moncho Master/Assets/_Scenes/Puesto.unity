@@ -149,6 +149,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 400179472}
+  - {fileID: 2045014560}
   m_Father: {fileID: 663457443}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -281,7 +282,7 @@ PrefabInstance:
     - target: {fileID: 6704903272411200140, guid: c05f2df0d46dddc4a8c736a1e9489ad1, type: 3}
       propertyPath: ingredient
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 11400000, guid: d9077a67cb4c2b447b02ded0bf4fe0c8, type: 2}
     - target: {fileID: 8119133447928950565, guid: c05f2df0d46dddc4a8c736a1e9489ad1, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -391,6 +392,7 @@ GameObject:
   - component: {fileID: 116791379}
   - component: {fileID: 116791381}
   - component: {fileID: 116791380}
+  - component: {fileID: 116791382}
   m_Layer: 5
   m_Name: Chile
   m_TagString: Untagged
@@ -456,6 +458,24 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 116791378}
   m_CullTransparentMesh: 1
+--- !u!114 &116791382
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 116791378}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 887fe393efe6e3441b14f28bc0bc1938, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::IngredientUI
+  unlockService: {fileID: 2060138950}
+  ingredient: {fileID: 11400000, guid: 1cd648b5339ed0342a0daf6e243536d5, type: 2}
+  hideWhenLocked: 0
+  lockedAlpha: 0.4
+  uiSelectable: {fileID: 0}
+  ingredientImage: {fileID: 116791380}
 --- !u!1 &151439643
 GameObject:
   m_ObjectHideFlags: 0
@@ -472,7 +492,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &151439644
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -480,7 +500,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 151439643}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 967e4f12547183e48a0c8f5d7937139a, type: 3}
   m_Name: 
@@ -570,8 +590,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 162.43134}
-  m_SizeDelta: {x: 574, y: 215.1374}
+  m_AnchoredPosition: {x: 0, y: 162}
+  m_SizeDelta: {x: 580, y: 230}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &191121042
 CanvasRenderer:
@@ -614,7 +634,7 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 4
-  m_Spacing: 0
+  m_Spacing: -65
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 0
@@ -709,6 +729,7 @@ GameObject:
   - component: {fileID: 208630458}
   - component: {fileID: 208630460}
   - component: {fileID: 208630459}
+  - component: {fileID: 208630461}
   m_Layer: 5
   m_Name: Cacahuates
   m_TagString: Untagged
@@ -774,6 +795,24 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 208630457}
   m_CullTransparentMesh: 1
+--- !u!114 &208630461
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 208630457}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 887fe393efe6e3441b14f28bc0bc1938, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::IngredientUI
+  unlockService: {fileID: 2060138950}
+  ingredient: {fileID: 11400000, guid: 3c61919069a331e41a966ba6b8a164be, type: 2}
+  hideWhenLocked: 0
+  lockedAlpha: 0.4
+  uiSelectable: {fileID: 0}
+  ingredientImage: {fileID: 208630459}
 --- !u!1 &214596106
 GameObject:
   m_ObjectHideFlags: 0
@@ -805,8 +844,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::LoteriaService
   unlocks: {fileID: 2060138950}
   crafting: {fileID: 1955851082}
-  rows: 2
-  cols: 2
+  rows: 3
+  cols: 3
   _board: []
   catalogForBoard:
   - {fileID: 11400000, guid: a1b56ea12fe9d70408f2c784c9b045d0, type: 2}
@@ -821,7 +860,7 @@ Transform:
   m_GameObject: {fileID: 214596106}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 979.4116, y: 555.22015, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1030,6 +1069,7 @@ GameObject:
   - component: {fileID: 267136195}
   - component: {fileID: 267136197}
   - component: {fileID: 267136196}
+  - component: {fileID: 267136198}
   m_Layer: 5
   m_Name: Crema
   m_TagString: Untagged
@@ -1095,6 +1135,24 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 267136194}
   m_CullTransparentMesh: 1
+--- !u!114 &267136198
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 267136194}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 887fe393efe6e3441b14f28bc0bc1938, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::IngredientUI
+  unlockService: {fileID: 2060138950}
+  ingredient: {fileID: 11400000, guid: 8f94e150205bb344eade812e52e292cb, type: 2}
+  hideWhenLocked: 0
+  lockedAlpha: 0.4
+  uiSelectable: {fileID: 0}
+  ingredientImage: {fileID: 267136196}
 --- !u!1001 &291178723
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1244,6 +1302,7 @@ GameObject:
   - component: {fileID: 297331350}
   - component: {fileID: 297331352}
   - component: {fileID: 297331351}
+  - component: {fileID: 297331353}
   m_Layer: 5
   m_Name: Salchipulpo
   m_TagString: Untagged
@@ -1309,6 +1368,24 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 297331349}
   m_CullTransparentMesh: 1
+--- !u!114 &297331353
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 297331349}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 887fe393efe6e3441b14f28bc0bc1938, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::IngredientUI
+  unlockService: {fileID: 2060138950}
+  ingredient: {fileID: 11400000, guid: f4c2ebc47ca4b8a4bbcee9830ceafcc3, type: 2}
+  hideWhenLocked: 0
+  lockedAlpha: 0.4
+  uiSelectable: {fileID: 0}
+  ingredientImage: {fileID: 297331351}
 --- !u!1 &311183750
 GameObject:
   m_ObjectHideFlags: 0
@@ -1497,6 +1574,7 @@ GameObject:
   - component: {fileID: 328669731}
   - component: {fileID: 328669733}
   - component: {fileID: 328669732}
+  - component: {fileID: 328669734}
   m_Layer: 5
   m_Name: Limon
   m_TagString: Untagged
@@ -1562,6 +1640,24 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 328669730}
   m_CullTransparentMesh: 1
+--- !u!114 &328669734
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 328669730}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 887fe393efe6e3441b14f28bc0bc1938, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::IngredientUI
+  unlockService: {fileID: 2060138950}
+  ingredient: {fileID: 11400000, guid: d9077a67cb4c2b447b02ded0bf4fe0c8, type: 2}
+  hideWhenLocked: 0
+  lockedAlpha: 0.4
+  uiSelectable: {fileID: 0}
+  ingredientImage: {fileID: 328669732}
 --- !u!1 &333199613
 GameObject:
   m_ObjectHideFlags: 0
@@ -1648,6 +1744,7 @@ GameObject:
   - component: {fileID: 375111785}
   - component: {fileID: 375111787}
   - component: {fileID: 375111786}
+  - component: {fileID: 375111788}
   m_Layer: 5
   m_Name: Mostaza
   m_TagString: Untagged
@@ -1713,6 +1810,24 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 375111784}
   m_CullTransparentMesh: 1
+--- !u!114 &375111788
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 375111784}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 887fe393efe6e3441b14f28bc0bc1938, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::IngredientUI
+  unlockService: {fileID: 2060138950}
+  ingredient: {fileID: 11400000, guid: d24e41b60ee566c46a0f6c99f91ff0d6, type: 2}
+  hideWhenLocked: 0
+  lockedAlpha: 0.4
+  uiSelectable: {fileID: 0}
+  ingredientImage: {fileID: 375111786}
 --- !u!1 &395135714
 GameObject:
   m_ObjectHideFlags: 0
@@ -2505,69 +2620,28 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 8200044607384786572, guid: c05f2df0d46dddc4a8c736a1e9489ad1, type: 3}
   m_PrefabInstance: {fileID: 569793378}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &601711614
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 601711616}
-  - component: {fileID: 601711615}
-  - component: {fileID: 601711617}
-  m_Layer: 0
-  m_Name: UIManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &601711615
+--- !u!114 &601711615 stripped
 MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 3797918910135751993, guid: 5fd969b09c026434baa3ebe23400f7e2, type: 3}
+  m_PrefabInstance: {fileID: 1586890336133754927}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 601711614}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7ba054b7e5f359c4e9f9f6df24964bf8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ConfirmDeliverButton
-  crafting: {fileID: 1955851082}
---- !u!4 &601711616
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 601711614}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 942.5171, y: 502.26804, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &601711617
+--- !u!114 &601711617 stripped
 MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 8450297117434896148, guid: 5fd969b09c026434baa3ebe23400f7e2, type: 3}
+  m_PrefabInstance: {fileID: 1586890336133754927}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 601711614}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a4cf2f083916a8d4a8e7fb846eb789ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UIManager
-  gameplayScene: Puesto
-  mainMenuScene: Main Menu
-  creditsScene: Creditos
-  optionsPanel: {fileID: 1369878546}
-  pausePanel: {fileID: 33451249}
 --- !u!1 &608925118
 GameObject:
   m_ObjectHideFlags: 0
@@ -3003,6 +3077,7 @@ GameObject:
   - component: {fileID: 765154469}
   - component: {fileID: 765154471}
   - component: {fileID: 765154470}
+  - component: {fileID: 765154472}
   m_Layer: 5
   m_Name: Mayonesa
   m_TagString: Untagged
@@ -3068,6 +3143,24 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 765154468}
   m_CullTransparentMesh: 1
+--- !u!114 &765154472
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 765154468}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 887fe393efe6e3441b14f28bc0bc1938, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::IngredientUI
+  unlockService: {fileID: 2060138950}
+  ingredient: {fileID: 11400000, guid: f9c3cb4fa3c2db248ac590c61bb097e4, type: 2}
+  hideWhenLocked: 0
+  lockedAlpha: 0.4
+  uiSelectable: {fileID: 0}
+  ingredientImage: {fileID: 765154470}
 --- !u!1 &788648865
 GameObject:
   m_ObjectHideFlags: 0
@@ -3551,7 +3644,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 8300000, guid: 8733192c365ccc747a6bb97242633020, type: 3}
+  m_Resource: {fileID: 8300000, guid: d666a3f0e003c13468ad66e772921419, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -3792,7 +3885,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8119133447928950565, guid: c05f2df0d46dddc4a8c736a1e9489ad1, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8200044607384786572, guid: c05f2df0d46dddc4a8c736a1e9489ad1, type: 3}
       propertyPath: m_Pivot.x
@@ -3895,6 +3988,7 @@ GameObject:
   - component: {fileID: 972787449}
   - component: {fileID: 972787451}
   - component: {fileID: 972787450}
+  - component: {fileID: 972787452}
   m_Layer: 5
   m_Name: Esquite
   m_TagString: Untagged
@@ -3960,6 +4054,24 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 972787448}
   m_CullTransparentMesh: 1
+--- !u!114 &972787452
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 972787448}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 887fe393efe6e3441b14f28bc0bc1938, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::IngredientUI
+  unlockService: {fileID: 2060138950}
+  ingredient: {fileID: 11400000, guid: a1b56ea12fe9d70408f2c784c9b045d0, type: 2}
+  hideWhenLocked: 0
+  lockedAlpha: 0.4
+  uiSelectable: {fileID: 0}
+  ingredientImage: {fileID: 972787450}
 --- !u!1 &1003105000
 GameObject:
   m_ObjectHideFlags: 0
@@ -4227,6 +4339,7 @@ GameObject:
   - component: {fileID: 1041858429}
   - component: {fileID: 1041858431}
   - component: {fileID: 1041858430}
+  - component: {fileID: 1041858432}
   m_Layer: 5
   m_Name: Papas a la francesa
   m_TagString: Untagged
@@ -4292,6 +4405,24 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1041858428}
   m_CullTransparentMesh: 1
+--- !u!114 &1041858432
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1041858428}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 887fe393efe6e3441b14f28bc0bc1938, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::IngredientUI
+  unlockService: {fileID: 2060138950}
+  ingredient: {fileID: 11400000, guid: c2aa9d6dfdaa47a49a344009b6eb32cc, type: 2}
+  hideWhenLocked: 0
+  lockedAlpha: 0.4
+  uiSelectable: {fileID: 0}
+  ingredientImage: {fileID: 1041858430}
 --- !u!1 &1051692339
 GameObject:
   m_ObjectHideFlags: 0
@@ -4303,6 +4434,7 @@ GameObject:
   - component: {fileID: 1051692340}
   - component: {fileID: 1051692342}
   - component: {fileID: 1051692341}
+  - component: {fileID: 1051692343}
   m_Layer: 5
   m_Name: Tostitos Base
   m_TagString: Untagged
@@ -4368,6 +4500,24 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1051692339}
   m_CullTransparentMesh: 1
+--- !u!114 &1051692343
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1051692339}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 887fe393efe6e3441b14f28bc0bc1938, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::IngredientUI
+  unlockService: {fileID: 2060138950}
+  ingredient: {fileID: 11400000, guid: d925d574f2647214ebc6f91f5fb959a2, type: 2}
+  hideWhenLocked: 0
+  lockedAlpha: 0.4
+  uiSelectable: {fileID: 0}
+  ingredientImage: {fileID: 1051692341}
 --- !u!1001 &1053474782
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5038,6 +5188,7 @@ GameObject:
   - component: {fileID: 1315363191}
   - component: {fileID: 1315363193}
   - component: {fileID: 1315363192}
+  - component: {fileID: 1315363194}
   m_Layer: 5
   m_Name: Catsup
   m_TagString: Untagged
@@ -5103,6 +5254,24 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1315363190}
   m_CullTransparentMesh: 1
+--- !u!114 &1315363194
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1315363190}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 887fe393efe6e3441b14f28bc0bc1938, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::IngredientUI
+  unlockService: {fileID: 2060138950}
+  ingredient: {fileID: 11400000, guid: 412d02ff5bd433c4c9f0fd4af645db11, type: 2}
+  hideWhenLocked: 0
+  lockedAlpha: 0.4
+  uiSelectable: {fileID: 0}
+  ingredientImage: {fileID: 1315363192}
 --- !u!1 &1328482696
 GameObject:
   m_ObjectHideFlags: 0
@@ -5298,7 +5467,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1342863577
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5306,7 +5475,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1342863576}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 30c4acfe9b23b9949b14ab70f0801621, type: 3}
   m_Name: 
@@ -5588,6 +5757,7 @@ GameObject:
   - component: {fileID: 1396450261}
   - component: {fileID: 1396450263}
   - component: {fileID: 1396450262}
+  - component: {fileID: 1396450264}
   m_Layer: 5
   m_Name: Cueritos
   m_TagString: Untagged
@@ -5653,6 +5823,24 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1396450260}
   m_CullTransparentMesh: 1
+--- !u!114 &1396450264
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1396450260}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 887fe393efe6e3441b14f28bc0bc1938, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::IngredientUI
+  unlockService: {fileID: 2060138950}
+  ingredient: {fileID: 11400000, guid: 233e0267a69193547a91d41f46463148, type: 2}
+  hideWhenLocked: 0
+  lockedAlpha: 0.4
+  uiSelectable: {fileID: 0}
+  ingredientImage: {fileID: 1396450262}
 --- !u!1001 &1425028108
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5839,10 +6027,10 @@ MonoBehaviour:
   m_ChildAlignment: 4
   m_StartCorner: 0
   m_StartAxis: 0
-  m_CellSize: {x: 125, y: 150}
-  m_Spacing: {x: 1, y: 25}
+  m_CellSize: {x: 110, y: 160}
+  m_Spacing: {x: 1, y: 5}
   m_Constraint: 1
-  m_ConstraintCount: 2
+  m_ConstraintCount: 3
 --- !u!1 &1447846252
 GameObject:
   m_ObjectHideFlags: 0
@@ -6372,8 +6560,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -165, y: -220}
-  m_SizeDelta: {x: 300, y: 400}
+  m_AnchoredPosition: {x: -200, y: -280}
+  m_SizeDelta: {x: 360, y: 526}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1623082198
 MonoBehaviour:
@@ -6602,6 +6790,7 @@ GameObject:
   - component: {fileID: 1755567721}
   - component: {fileID: 1755567723}
   - component: {fileID: 1755567722}
+  - component: {fileID: 1755567724}
   m_Layer: 5
   m_Name: Salchichas
   m_TagString: Untagged
@@ -6667,6 +6856,24 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1755567720}
   m_CullTransparentMesh: 1
+--- !u!114 &1755567724
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1755567720}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 887fe393efe6e3441b14f28bc0bc1938, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::IngredientUI
+  unlockService: {fileID: 2060138950}
+  ingredient: {fileID: 11400000, guid: 3510bd72cdd2b3c43bc6cace43ef484c, type: 2}
+  hideWhenLocked: 0
+  lockedAlpha: 0.5
+  uiSelectable: {fileID: 0}
+  ingredientImage: {fileID: 1755567722}
 --- !u!1 &1814009566
 GameObject:
   m_ObjectHideFlags: 0
@@ -7128,6 +7335,41 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 8200044607384786572, guid: c05f2df0d46dddc4a8c736a1e9489ad1, type: 3}
   m_PrefabInstance: {fileID: 2014671384}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2045014559
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2045014560}
+  m_Layer: 5
+  m_Name: prueba
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &2045014560
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2045014559}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8465248}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &2060138949
 GameObject:
   m_ObjectHideFlags: 0
@@ -7160,14 +7402,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::UnlockService
   allIngredients:
   - {fileID: 11400000, guid: a1b56ea12fe9d70408f2c784c9b045d0, type: 2}
+  - {fileID: 11400000, guid: d925d574f2647214ebc6f91f5fb959a2, type: 2}
+  - {fileID: 11400000, guid: f4c2ebc47ca4b8a4bbcee9830ceafcc3, type: 2}
   - {fileID: 11400000, guid: 8f94e150205bb344eade812e52e292cb, type: 2}
   - {fileID: 11400000, guid: e04cc0200fb5bb94b9e7a9f79fe992bc, type: 2}
   - {fileID: 11400000, guid: f9c3cb4fa3c2db248ac590c61bb097e4, type: 2}
+  - {fileID: 11400000, guid: 3c61919069a331e41a966ba6b8a164be, type: 2}
+  - {fileID: 11400000, guid: 412d02ff5bd433c4c9f0fd4af645db11, type: 2}
+  - {fileID: 11400000, guid: c2aa9d6dfdaa47a49a344009b6eb32cc, type: 2}
+  - {fileID: 11400000, guid: 3510bd72cdd2b3c43bc6cace43ef484c, type: 2}
+  - {fileID: 11400000, guid: d24e41b60ee566c46a0f6c99f91ff0d6, type: 2}
   initiallyUnlocked:
   - {fileID: 11400000, guid: a1b56ea12fe9d70408f2c784c9b045d0, type: 2}
   - {fileID: 11400000, guid: e04cc0200fb5bb94b9e7a9f79fe992bc, type: 2}
   - {fileID: 11400000, guid: 8f94e150205bb344eade812e52e292cb, type: 2}
-  usePlayerPrefs: 1
+  usePlayerPrefs: 0
   prefsKey: MM_IngredientUnlocks
 --- !u!114 &2060138951
 MonoBehaviour:
@@ -7189,9 +7438,6 @@ MonoBehaviour:
   totalOrders: 0
   successfulOrders: 0
   failedOrders: 0
-  scoreText: {fileID: 0}
-  ordersText: {fileID: 0}
-  orderDetailsText: {fileID: 0}
 --- !u!4 &2060138952
 Transform:
   m_ObjectHideFlags: 0
@@ -7218,6 +7464,7 @@ GameObject:
   - component: {fileID: 2065681757}
   - component: {fileID: 2065681759}
   - component: {fileID: 2065681758}
+  - component: {fileID: 2065681760}
   m_Layer: 5
   m_Name: Queso
   m_TagString: Untagged
@@ -7283,6 +7530,24 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2065681756}
   m_CullTransparentMesh: 1
+--- !u!114 &2065681760
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2065681756}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 887fe393efe6e3441b14f28bc0bc1938, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::IngredientUI
+  unlockService: {fileID: 2060138950}
+  ingredient: {fileID: 11400000, guid: e04cc0200fb5bb94b9e7a9f79fe992bc, type: 2}
+  hideWhenLocked: 0
+  lockedAlpha: 0.4
+  uiSelectable: {fileID: 0}
+  ingredientImage: {fileID: 2065681758}
 --- !u!1 &2077233312
 GameObject:
   m_ObjectHideFlags: 0
@@ -8002,6 +8267,75 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c05f2df0d46dddc4a8c736a1e9489ad1, type: 3}
+--- !u!1001 &1586890336133754927
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1005315168854933640, guid: 5fd969b09c026434baa3ebe23400f7e2, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 942.5171
+      objectReference: {fileID: 0}
+    - target: {fileID: 1005315168854933640, guid: 5fd969b09c026434baa3ebe23400f7e2, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 502.26804
+      objectReference: {fileID: 0}
+    - target: {fileID: 1005315168854933640, guid: 5fd969b09c026434baa3ebe23400f7e2, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1005315168854933640, guid: 5fd969b09c026434baa3ebe23400f7e2, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1005315168854933640, guid: 5fd969b09c026434baa3ebe23400f7e2, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1005315168854933640, guid: 5fd969b09c026434baa3ebe23400f7e2, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1005315168854933640, guid: 5fd969b09c026434baa3ebe23400f7e2, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1005315168854933640, guid: 5fd969b09c026434baa3ebe23400f7e2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1005315168854933640, guid: 5fd969b09c026434baa3ebe23400f7e2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1005315168854933640, guid: 5fd969b09c026434baa3ebe23400f7e2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3641748244149353762, guid: 5fd969b09c026434baa3ebe23400f7e2, type: 3}
+      propertyPath: m_Name
+      value: UIManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 3797918910135751993, guid: 5fd969b09c026434baa3ebe23400f7e2, type: 3}
+      propertyPath: crafting
+      value: 
+      objectReference: {fileID: 1955851082}
+    - target: {fileID: 8450297117434896148, guid: 5fd969b09c026434baa3ebe23400f7e2, type: 3}
+      propertyPath: pausePanel
+      value: 
+      objectReference: {fileID: 33451249}
+    - target: {fileID: 8450297117434896148, guid: 5fd969b09c026434baa3ebe23400f7e2, type: 3}
+      propertyPath: optionsPanel
+      value: 
+      objectReference: {fileID: 1369878546}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 5fd969b09c026434baa3ebe23400f7e2, type: 3}
 --- !u!1001 &3253586291088003382
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8073,7 +8407,7 @@ SceneRoots:
   - {fileID: 3253586291088003382}
   - {fileID: 922863740}
   - {fileID: 2060138952}
-  - {fileID: 601711616}
+  - {fileID: 1586890336133754927}
   - {fileID: 1342863578}
   - {fileID: 151439645}
   - {fileID: 608925119}

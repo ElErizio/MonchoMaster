@@ -43,6 +43,27 @@ public class UnlockService : MonoBehaviour
         StartCoroutine(NotifyReadyNextFrame());
     }
 
+    [ContextMenu("Debug All Ingredients State")]
+    public void DebugAllIngredientsState()
+    {
+        Debug.Log("=== DEBUG UNLOCK SERVICE ===");
+        Debug.Log($"Total ingredientes en catálogo: {ingredientsById?.Count ?? 0}");
+        Debug.Log($"Ingredientes desbloqueados: {_unlocked.Count}");
+
+        if (allIngredients != null)
+        {
+            foreach (var ing in allIngredients)
+            {
+                if (ing != null)
+                {
+                    bool unlocked = IsUnlocked(ing);
+                    Debug.Log($"{ing.name} (ID: {ing.Id}) - {(unlocked ? "DESBLOQUEADO" : "BLOQUEADO")}");
+                }
+            }
+        }
+        Debug.Log("=== FIN DEBUG ===");
+    }
+
     public Sprite GetIngredientCard(string ingredientId)
     {
         return ingredientsById != null

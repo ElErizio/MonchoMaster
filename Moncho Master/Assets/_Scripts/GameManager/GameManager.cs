@@ -1,5 +1,4 @@
 using UnityEngine;
-using System.Collections;
 using Moncho.Orders;
 using UnityEngine.UI;
 
@@ -21,10 +20,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int successfulOrders = 0;
     [SerializeField] private int failedOrders = 0;
 
-    [Header("UI References")]
-    [SerializeField] private Text scoreText;
-    [SerializeField] private Text ordersText;
-    [SerializeField] private Text orderDetailsText;
+    private Text scoreText;
+    private Text ordersText;
+    private Text orderDetailsText;
 
     private GameState currentGameState = GameState.Playing;
     private NPCOrderService.OrderSpec _currentOrder;
@@ -52,7 +50,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        UpdateUI();
+        //UpdateUI();
     }
 
     private void InitializeServices()
@@ -80,7 +78,7 @@ public class GameManager : MonoBehaviour
         }
 
         Debug.Log($"Nueva orden generada! Total de órdenes: {totalOrders}");
-        UpdateUI();
+        //UpdateUI();
     }
 
     public void OnOrderCompleted(NPCOrderService.OrderSpec completedOrder, bool wasSuccessful)
@@ -122,11 +120,11 @@ public class GameManager : MonoBehaviour
 
         currentScore = Mathf.Max(0, currentScore);
 
-        UpdateUI();
+        //UpdateUI();
         CheckGameConditions();
     }
 
-    private void UpdateUI()
+    /*private void UpdateUI()
     {
         if (scoreText != null)
             scoreText.text = $"Puntos: {currentScore}";
@@ -136,18 +134,16 @@ public class GameManager : MonoBehaviour
             float successRate = totalOrders > 0 ? (float)successfulOrders / totalOrders * 100 : 0f;
             ordersText.text = $"Éxito: {successfulOrders}/{totalOrders} ({successRate:F1}%)";
         }
-    }
+    }*/
 
     private void CheckGameConditions()
     {
-        // Ejemplo: Ganar al alcanzar 100 puntos
         if (currentScore >= 100)
         {
             Debug.Log("¡Has ganado el juego!");
             currentGameState = GameState.GameOver;
             if (orderDetailsText != null)
                 orderDetailsText.text = "¡VICTORIA!";
-            // Mostrar pantalla de victoria
         }
 
         if (failedOrders >= 5)
@@ -171,20 +167,11 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1f;
     }
 
-    public int GetCurrentScore() => currentScore;
-    public int GetSuccessfulOrders() => successfulOrders;
-    public int GetTotalOrders() => totalOrders;
-    public float GetSuccessRate() => totalOrders > 0 ? (float)successfulOrders / totalOrders : 0f;
-    public NPCOrderService.OrderSpec GetCurrentOrder() => _currentOrder;
-
-    public UnlockService GetUnlockService() => unlockService;
-    public AudioManager GetAudioManager() => audioManager;
-    public GameState GetCurrentState() => currentGameState;
 
     public void AddBonusPoints(int bonus)
     {
         currentScore += bonus;
-        UpdateUI();
+        //UpdateUI();
     }
 
     public void ResetGame()
@@ -197,6 +184,15 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1f;
         if (orderDetailsText != null)
             orderDetailsText.text = "¡Comienza a cocinar!";
-        UpdateUI();
+        //UpdateUI();
     }
+    public int GetCurrentScore() => currentScore;
+    public int GetSuccessfulOrders() => successfulOrders;
+    public int GetTotalOrders() => totalOrders;
+    public float GetSuccessRate() => totalOrders > 0 ? (float)successfulOrders / totalOrders : 0f;
+    public NPCOrderService.OrderSpec GetCurrentOrder() => _currentOrder;
+
+    public UnlockService GetUnlockService() => unlockService;
+    public AudioManager GetAudioManager() => audioManager;
+    public GameState GetCurrentState() => currentGameState;
 }
