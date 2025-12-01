@@ -1,10 +1,12 @@
 using System.Collections.Generic;
 using UnityEngine;
+using Moncho.Orders;
 
 public class CraftingManager : MonoBehaviour
 {
     [SerializeField] private PlateContainer plate;
     [SerializeField] private RecipeIndex index;
+    [SerializeField] private NPCOrderService npcOrderService;
     [SerializeField] private bool autoCraftOnMatch = true;
 
     public delegate void DishCrafted(RecipeSO.DishData dish, RecipeSO recipe);
@@ -102,64 +104,82 @@ public class CraftingManager : MonoBehaviour
         for (int i = 0; i < items.Count; i++)
             ids[i] = (items[i] != null) ? items[i].Id : "null";
 
-        RecipeSO match;
-        if (index.TryFindExact(normKey, out match) && IsValidPlateFor(match))
+        if (OrderManager.Instance != null)
         {
-            DeliveryPayload p;
-            p.matched = true;
-            p.recipe = match;
-            p.dish = match.output;
-            p.normalizedKey = normKey;
-            p.ingredientIds = ids;
-
-            Craft(match);
-
-            var h = OnDishDelivered; if (h != null) h(p);
-            plate.SetLocked(false);
-            return true;
+            OrderManager.Instance.ResetOrder();
         }
 
-        foreach (var r in index.All)
+        bool npcValidation = false;
+        DeliveryPayload validationPayload = new DeliveryPayload
         {
-            if (r == null) continue;
-            if (r.categoryRequirements == null || r.categoryRequirements.Count == 0) continue;
-            if (MatchesByCategory(r) && IsValidPlateFor(r))
+            ingredientIds = ids,
+            normalizedKey = normKey
+        };
+
+        if (npcOrderService != null)
+        {
+            npcValidation = npcOrderService.ValidateCurrentOrder(validationPayload);
+            Debug.Log($"[CraftingManager] Validación NPCOrderService: {npcValidation}");
+        }
+
+        RecipeSO match;
+        bool craftingValidation = false;
+        DeliveryPayload p = new DeliveryPayload();
+
+        if (index.TryFindExact(normKey, out match) && IsValidPlateFor(match))
+        {
+            craftingValidation = true;
+            p.recipe = match;
+            p.dish = match.output;
+            Craft(match);
+        }
+        else
+        {
+            foreach (var r in index.All)
             {
-                DeliveryPayload p;
-                p.matched = true;
-                p.recipe = r;
-                p.dish = r.output;
-                p.normalizedKey = normKey;
-                p.ingredientIds = ids;
-
-                Craft(r);
-                var h = OnDishDelivered; if (h != null) h(p);
-
-                plate.SetLocked(false);
-                return true;
+                if (r == null) continue;
+                if (r.categoryRequirements == null || r.categoryRequirements.Count == 0) continue;
+                if (MatchesByCategory(r) && IsValidPlateFor(r))
+                {
+                    craftingValidation = true;
+                    p.recipe = r;
+                    p.dish = r.output;
+                    Craft(r);
+                    break;
+                }
             }
         }
 
-        DeliveryPayload improv;
-        improv.matched = false;
-        improv.recipe = null;
-        improv.dish = new RecipeSO.DishData
+        if (!craftingValidation)
         {
-            id = "custom_" + normKey,
-            displayName = "Platillo improvisado",
-            icon = null,
-            price = 0
-        };
-        improv.normalizedKey = normKey;
-        improv.ingredientIds = ids;
+            p.recipe = null;
+            p.dish = new RecipeSO.DishData
+            {
+                id = "custom_" + normKey,
+                displayName = "Platillo improvisado",
+                icon = null,
+                price = 0
+            };
+            plate.Clear();
+        }
 
-        plate.Clear();
-        var h2 = OnDishDelivered; if (h2 != null) h2(improv);
+        bool finalMatched = npcOrderService != null ? npcValidation : craftingValidation;
+        p.matched = finalMatched;
+        p.normalizedKey = normKey;
+        p.ingredientIds = ids;
+
+        if (OrderManager.Instance != null)
+        {
+            OrderManager.Instance.SetOrderResult(finalMatched);
+            Debug.Log($"[CraftingManager] OrderManager notificado con: {finalMatched} (NPC: {npcValidation}, Crafting: {craftingValidation})");
+        }
+
+        var h = OnDishDelivered;
+        if (h != null) h(p);
 
         plate.SetLocked(false);
         return true;
     }
-
 
     public void Craft(RecipeSO r)
     {
@@ -168,5 +188,37 @@ public class CraftingManager : MonoBehaviour
         plate.Clear();
         var h = OnDishCrafted; if (h != null) h(dish, r);
         Debug.Log("¡Platillo creado! -> " + dish.displayName + " ($" + dish.price + ")");
+    }
+
+    [ContextMenu("DEBUG/Force Correct Delivery")]
+    private void DebugForceCorrectDelivery()
+    {
+        if (OrderManager.Instance != null)
+            OrderManager.Instance.SetOrderResult(true);
+
+        var payload = new DeliveryPayload
+        {
+            matched = true,
+            dish = new RecipeSO.DishData { displayName = "DEBUG Dish" }
+        };
+
+        var h = OnDishDelivered;
+        if (h != null) h(payload);
+    }
+
+    [ContextMenu("DEBUG/Force Incorrect Delivery")]
+    private void DebugForceIncorrectDelivery()
+    {
+        if (OrderManager.Instance != null)
+            OrderManager.Instance.SetOrderResult(false);
+
+        var payload = new DeliveryPayload
+        {
+            matched = false,
+            dish = new RecipeSO.DishData { displayName = "DEBUG Failed Dish" }
+        };
+
+        var h = OnDishDelivered;
+        if (h != null) h(payload);
     }
 }

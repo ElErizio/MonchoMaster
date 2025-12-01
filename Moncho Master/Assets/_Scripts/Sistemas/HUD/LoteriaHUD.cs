@@ -95,8 +95,8 @@ public class LoteriaHUD : MonoBehaviour
 
             ui.Bind(sp, cells[i].marked);
         }
-
-        Debug.Log("[LoteriaHUD] Celdas instanciadas: " + created, this);
+        // Debug para mencionar cuantas Celdas se crearon para la lotería
+        // Debug.Log("[LoteriaHUD] Celdas instanciadas: " + created, this);
     }
 
 }

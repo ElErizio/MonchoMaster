@@ -56,13 +56,7 @@ public class TutorialBridge_Moncho : MonoBehaviour
         TutorialEvents.Raise("PedidoEntregado");
         if (payload.matched) TutorialEvents.Raise("PedidoCorrecto");
         else TutorialEvents.Raise("PedidoIncorrecto");
-
-        if (payload.matched && loteria != null)
-        {
-            loteria.OnCraftingDishDelivered(payload);
-        }
     }
-
 
     void OnBoardChanged()
     {

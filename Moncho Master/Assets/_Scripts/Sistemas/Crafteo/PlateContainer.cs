@@ -102,7 +102,6 @@ public class PlateContainer : MonoBehaviour
     {
         if (!CanAcceptWithReason(ing, out reason)) return false;
 
-        // Debounce: bloquea segundo intento del mismo ingrediente en el mismo frame
         int f = Time.frameCount;
         string id = ing != null ? ing.Id : "NULL";
         if (f == _lastAddFrame && id == _lastAddId)

@@ -183,6 +183,11 @@ namespace Moncho.Orders
             return true;
         }
 
+        public bool ValidateCurrentOrder(CraftingManager.DeliveryPayload payload)
+        {
+            return MatchesOrder(payload, _current);
+        }
+
         private OrderRecipe GetRandomRecipe()
         {
             if (specificRecipes.Length == 0) return null;
@@ -250,7 +255,7 @@ namespace Moncho.Orders
 
         private void HandleDelivered(CraftingManager.DeliveryPayload p)
         {
-            bool isOrderCorrect = MatchesOrder(p, _current);
+            bool isOrderCorrect = p.matched;
 
             if (isOrderCorrect)
             {
@@ -273,7 +278,6 @@ namespace Moncho.Orders
             if (p.ingredientIds == null || p.ingredientIds.Length == 0)
                 return false;
 
-            // Verificar que todos los ingredientes requeridos estén presentes
             var requiredIngredients = GetAllRequiredIngredients(order);
             var deliveredIds = new List<string>(p.ingredientIds);
 
@@ -287,10 +291,9 @@ namespace Moncho.Orders
 
                 if (!deliveredIds.Contains(required.Id))
                 {
-                    return false; // Falta un ingrediente requerido
+                    return false;
                 }
 
-                // Remover el ingrediente encontrado para manejar duplicados
                 deliveredIds.Remove(required.Id);
             }
 

@@ -40,7 +40,7 @@ public class IngredientUI : MonoBehaviour
 
         _isInitialized = true;
 
-        Debug.Log($"[IngredientUI] {gameObject.name} inicializado - Ingrediente válido: {_hasValidIngredient}");
+        // Debug.Log($"[IngredientUI] {gameObject.name} inicializado - Ingrediente válido: {_hasValidIngredient}");
     }
 
     private void OnEnable()
@@ -73,7 +73,7 @@ public class IngredientUI : MonoBehaviour
     {
         if (!_isInitialized) InitializeComponents();
 
-        if (!_hasValidIngredient)
+        /*if (!_hasValidIngredient)
         {
             Debug.LogWarning($"[IngredientUI] {gameObject.name} - No tiene un IngredientSO válido asignado");
             return;
@@ -83,7 +83,7 @@ public class IngredientUI : MonoBehaviour
         {
             Debug.LogError($"[IngredientUI] {gameObject.name} - UnlockService no disponible");
             return;
-        }
+        }*/
 
         bool isUnlocked = unlockService.IsUnlocked(ingredient);
 
@@ -109,10 +109,10 @@ public class IngredientUI : MonoBehaviour
             gameObject.SetActive(isUnlocked);
         }
 
-        Debug.Log($"[IngredientUI] {gameObject.name} - Estado: {(isUnlocked ? "DESBLOQUEADO" : "BLOQUEADO")}");
+        // Debug.Log($"[IngredientUI] {gameObject.name} - Estado: {(isUnlocked ? "DESBLOQUEADO" : "BLOQUEADO")}");
     }
 
-    [ContextMenu("Debug Ingredient State")]
+    /*[ContextMenu("Debug Ingredient State")]
     public void DebugIngredientState()
     {
         if (!_hasValidIngredient)
@@ -129,5 +129,5 @@ public class IngredientUI : MonoBehaviour
 
         bool isUnlocked = unlockService.IsUnlocked(ingredient);
         Debug.Log($"[DEBUG] {gameObject.name} - ID: {ingredient.Id} - Desbloqueado: {isUnlocked}");
-    }
+    }*/
 }

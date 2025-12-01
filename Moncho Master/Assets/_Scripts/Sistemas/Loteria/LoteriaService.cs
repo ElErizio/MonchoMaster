@@ -32,18 +32,48 @@ public class LoteriaService : MonoBehaviour
     {
         BuildBoard();
     }
-    void OnEnable() {
+
+    void OnEnable()
+    {
         if (crafting != null) crafting.OnDishDelivered += HandleDelivered;
     }
-    void OnDisable() {
+
+    void OnDisable()
+    {
         if (crafting != null) crafting.OnDishDelivered -= HandleDelivered;
     }
 
-    public void OnCraftingDishDelivered(CraftingManager.DeliveryPayload payload)
+    private void HandleDelivered(CraftingManager.DeliveryPayload p)
     {
-        if (!payload.matched) return;
+        bool isOrderCorrect = IsOrderCorrect();
 
-        MarkRandomFreeCell();
+        if (!isOrderCorrect)
+        {
+            Debug.Log("[Loteria] Pedido incorrecto - no se marca ninguna casilla");
+            return;
+        }
+
+        int n = _board != null ? _board.Length : 0;
+        if (n == 0) return;
+
+        int free = 0;
+        for (int i = 0; i < n; i++) if (!_board[i].marked) free++;
+        if (free == 0) { BuildBoard(); return; }
+
+        int targetFreeIndex = UnityEngine.Random.Range(0, free);
+        int seen = 0;
+        for (int i = 0; i < n; i++)
+        {
+            if (_board[i].marked) continue;
+            if (seen == targetFreeIndex)
+            {
+                _board[i].marked = true;
+                break;
+            }
+            seen++;
+        }
+
+        OnBoardChanged?.Invoke();
 
         if (HasLineComplete())
         {
@@ -52,10 +82,15 @@ public class LoteriaService : MonoBehaviour
         }
     }
 
-
-    private void HandleUnlocksChanged()
+    private bool IsOrderCorrect()
     {
-        BuildBoard();
+        if (OrderManager.Instance != null)
+        {
+            return OrderManager.Instance.IsCurrentOrderCorrect;
+        }
+
+        Debug.LogWarning("[Loteria] OrderManager no encontrado. Revisa la configuración.");
+        return false;
     }
 
     private void BuildBoard()
@@ -102,19 +137,7 @@ public class LoteriaService : MonoBehaviour
         return list.ToArray();
     }
 
-
     [SerializeField] private IngredientSO[] catalogForBoard;
-    private IngredientSO[] _cachedUnlockedFromCatalog()
-    {
-        if (catalogForBoard == null) return new IngredientSO[0];
-        System.Collections.Generic.List<IngredientSO> res = new System.Collections.Generic.List<IngredientSO>();
-        for (int i = 0; i < catalogForBoard.Length; i++)
-        {
-            var ing = catalogForBoard[i];
-            if (ing != null && unlocks != null && unlocks.IsUnlocked(ing)) res.Add(ing);
-        }
-        return res.ToArray();
-    }
 
     private string PickRandomIngredientId(IngredientSO[] pool)
     {
@@ -122,38 +145,6 @@ public class LoteriaService : MonoBehaviour
         int idx = UnityEngine.Random.Range(0, pool.Length);
         var ing = pool[idx];
         return (ing != null && !string.IsNullOrEmpty(ing.Id)) ? ing.Id : (ing != null ? ing.name : "unknown");
-    }
-
-
-    private void HandleDelivered(CraftingManager.DeliveryPayload p)
-    {
-        int n = _board != null ? _board.Length : 0;
-        if (n == 0) return;
-
-        int free = 0;
-        for (int i = 0; i < n; i++) if (!_board[i].marked) free++;
-        if (free == 0) { BuildBoard(); return; }
-
-        int targetFreeIndex = UnityEngine.Random.Range(0, free);
-        int seen = 0;
-        for (int i = 0; i < n; i++)
-        {
-            if (_board[i].marked) continue;
-            if (seen == targetFreeIndex)
-            {
-                _board[i].marked = true;
-                break;
-            }
-            seen++;
-        }
-
-        var h1 = OnBoardChanged; if (h1 != null) h1();
-
-        if (HasLineComplete())
-        {
-            UnlockRandomIngredient();
-            BuildBoard();
-        }
     }
 
     private bool HasLineComplete()
@@ -194,33 +185,11 @@ public class LoteriaService : MonoBehaviour
         if (ok) Debug.Log("[Loteria] Desbloqueado por línea: " + locked.Id, locked);
     }
 
-    private void MarkRandomFreeCell()
-    {
-        int n = (_board != null) ? _board.Length : 0;
-        if (n == 0) { BuildBoard(); return; }
-
-        int free = 0;
-        for (int i = 0; i < n; i++) if (!_board[i].marked) free++;
-
-        if (free == 0) { BuildBoard(); return; }
-
-        int targetFreeIndex = UnityEngine.Random.Range(0, free);
-        int seen = 0;
-        for (int i = 0; i < n; i++)
-        {
-            if (_board[i].marked) continue;
-            if (seen == targetFreeIndex)
-            {
-                _board[i].marked = true;
-                break;
-            }
-            seen++;
-        }
-
-        OnBoardChanged?.Invoke();
-    }
-
-
     [ContextMenu("DEBUG/Mark Random")]
-    private void DebugMarkRandom() { HandleDelivered(new CraftingManager.DeliveryPayload { matched = true }); }
+    private void DebugMarkRandom()
+    {
+        if (OrderManager.Instance != null)
+            OrderManager.Instance.SetOrderResult(true);
+        HandleDelivered(new CraftingManager.DeliveryPayload { matched = true });
+    }
 }
