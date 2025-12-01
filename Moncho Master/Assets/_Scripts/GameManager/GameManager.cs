@@ -1,6 +1,7 @@
 using UnityEngine;
 using Moncho.Orders;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -19,6 +20,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int totalOrders = 0;
     [SerializeField] private int successfulOrders = 0;
     [SerializeField] private int failedOrders = 0;
+
+    [Header("Game Conditions")]
+    [SerializeField] private int maxFailedOrders = 3;
+    [SerializeField] private int winningScore = 100;
 
     private Text scoreText;
     private Text ordersText;
@@ -138,20 +143,24 @@ public class GameManager : MonoBehaviour
 
     private void CheckGameConditions()
     {
-        if (currentScore >= 100)
+        if (currentScore >= winningScore)
         {
-            Debug.Log("¡Has ganado el juego!");
             currentGameState = GameState.GameOver;
             if (orderDetailsText != null)
                 orderDetailsText.text = "¡VICTORIA!";
+
+            SceneManager.LoadScene("Moncho Master");
+            return;
         }
 
-        if (failedOrders >= 5)
+        if (failedOrders >= maxFailedOrders)
         {
-            Debug.Log("¡Demasiados errores! Juego terminado.");
             currentGameState = GameState.GameOver;
             if (orderDetailsText != null)
                 orderDetailsText.text = "GAME OVER";
+
+            SceneManager.LoadScene("Fail Master");
+            return;
         }
     }
 
@@ -172,6 +181,7 @@ public class GameManager : MonoBehaviour
     {
         currentScore += bonus;
         //UpdateUI();
+        CheckGameConditions(); // Verificar condiciones después de agregar puntos
     }
 
     public void ResetGame()
