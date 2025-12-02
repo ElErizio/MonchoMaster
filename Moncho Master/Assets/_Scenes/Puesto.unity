@@ -490,7 +490,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &151439644
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -498,7 +498,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 151439643}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 967e4f12547183e48a0c8f5d7937139a, type: 3}
   m_Name: 
@@ -536,7 +536,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &185229531
 Transform:
   m_ObjectHideFlags: 0
@@ -3075,7 +3075,7 @@ MonoBehaviour:
     min: 0
     max: 6
   locked: 0
-  unlocks: {fileID: 0}
+  unlocks: {fileID: 2060138950}
 --- !u!1 &765154468
 GameObject:
   m_ObjectHideFlags: 0
@@ -5477,7 +5477,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1342863577
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5485,7 +5485,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1342863576}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 30c4acfe9b23b9949b14ab70f0801621, type: 3}
   m_Name: 
@@ -7439,7 +7439,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: a1b56ea12fe9d70408f2c784c9b045d0, type: 2}
   - {fileID: 11400000, guid: e04cc0200fb5bb94b9e7a9f79fe992bc, type: 2}
   - {fileID: 11400000, guid: 8f94e150205bb344eade812e52e292cb, type: 2}
-  usePlayerPrefs: 0
+  usePlayerPrefs: 1
   prefsKey: MM_IngredientUnlocks
 --- !u!114 &2060138951
 MonoBehaviour:
@@ -7461,6 +7461,8 @@ MonoBehaviour:
   totalOrders: 0
   successfulOrders: 0
   failedOrders: 0
+  maxFailedOrders: 3
+  winningScore: 100
 --- !u!4 &2060138952
 Transform:
   m_ObjectHideFlags: 0

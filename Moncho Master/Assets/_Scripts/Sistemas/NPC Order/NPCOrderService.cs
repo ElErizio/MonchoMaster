@@ -118,7 +118,18 @@ namespace Moncho.Orders
         {
             if (!ValidateRecipes()) return;
 
-            OrderRecipe selectedRecipe = GetRandomRecipe();
+            // Obtener solo recetas con ingredientes desbloqueados
+            List<OrderRecipe> availableRecipes = GetRecipesWithUnlockedIngredients();
+
+            if (availableRecipes.Count == 0)
+            {
+                Log("No hay recetas disponibles (todos los ingredientes requeridos están bloqueados).");
+                // Podrías mostrar un mensaje al jugador aquí
+                return;
+            }
+
+            // Seleccionar receta aleatoria de las disponibles
+            OrderRecipe selectedRecipe = GetRandomRecipeFromList(availableRecipes);
 
             if (selectedRecipe == null || selectedRecipe.requiredIngredients == null || selectedRecipe.requiredIngredients.Length == 0)
             {
@@ -134,6 +145,58 @@ namespace Moncho.Orders
             OnOrderChanged?.Invoke(_current);
 
             gameManager?.OnNewOrderGenerated(_current);
+        }
+
+        // Nuevo método: Obtener solo recetas con todos los ingredientes desbloqueados
+        private List<OrderRecipe> GetRecipesWithUnlockedIngredients()
+        {
+            List<OrderRecipe> availableRecipes = new List<OrderRecipe>();
+
+            if (unlocks == null)
+            {
+                Log("UnlockService no asignado");
+                return availableRecipes;
+            }
+
+            foreach (var recipe in specificRecipes)
+            {
+                if (recipe == null || recipe.requiredIngredients == null) continue;
+
+                bool allIngredientsUnlocked = true;
+
+                foreach (var ingredient in recipe.requiredIngredients)
+                {
+                    if (ingredient == null)
+                    {
+                        allIngredientsUnlocked = false;
+                        break;
+                    }
+
+                    if (!unlocks.IsUnlocked(ingredient))
+                    {
+                        allIngredientsUnlocked = false;
+                        break;
+                    }
+                }
+
+                if (allIngredientsUnlocked)
+                {
+                    availableRecipes.Add(recipe);
+
+                    if (debugLogs)
+                    {
+                        Log($"Receta disponible: {recipe.recipeName}");
+                        string ingredientList = "";
+                        foreach (var ing in recipe.requiredIngredients)
+                            ingredientList += $"{ing.name} (ID: {ing.Id}), ";
+                        Log($"Ingredientes: {ingredientList}");
+                    }
+                }
+            }
+
+            if (debugLogs) Log($"Total recetas disponibles: {availableRecipes.Count}/{specificRecipes.Length}");
+
+            return availableRecipes;
         }
 
         private OrderSpec ConvertRecipeToOrderSpec(OrderRecipe recipe)
@@ -188,10 +251,11 @@ namespace Moncho.Orders
             return MatchesOrder(payload, _current);
         }
 
-        private OrderRecipe GetRandomRecipe()
+        // Modificado: Ahora recibe una lista específica de recetas
+        private OrderRecipe GetRandomRecipeFromList(List<OrderRecipe> recipeList)
         {
-            if (specificRecipes.Length == 0) return null;
-            return specificRecipes[UnityEngine.Random.Range(0, specificRecipes.Length)];
+            if (recipeList.Count == 0) return null;
+            return recipeList[UnityEngine.Random.Range(0, recipeList.Count)];
         }
 
         private void UpdateClient()
