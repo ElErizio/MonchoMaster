@@ -6,6 +6,8 @@ using UnityEngine;
 [DisallowMultipleComponent]
 public class UnlockService : MonoBehaviour
 {
+    public static UnlockService Instance { get; private set; }
+
     [Header("Catálogo")]
     [SerializeField] private IngredientSO[] allIngredients;
     [SerializeField] private IngredientSO[] initiallyUnlocked;
@@ -26,16 +28,20 @@ public class UnlockService : MonoBehaviour
 
     private void Awake()
     {
-        var existing = FindFirstObjectByType<UnlockService>(); 
-        if (existing != null && existing != this)
+        if (Instance != null && Instance != this)
         {
-            Debug.LogError("Múltiples UnlockServices detectados!", this);
+            Debug.LogWarning($"Múltiples UnlockServices detectados. Destruyendo {gameObject.name}", this);
             Destroy(gameObject);
             return;
         }
 
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
+
         InitializeDictionary();
         LoadState();
+
+        Debug.Log($"[UnlockService] Inicializado y persistente. ID: {GetInstanceID()}", this);
     }
 
     private void Start()

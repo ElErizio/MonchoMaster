@@ -1,0 +1,90 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3634434152142662539
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3176246273187577}
+  - component: {fileID: 4954943048052935635}
+  - component: {fileID: 9181628852984039689}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3176246273187577
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3634434152142662539}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1060.3961, y: 526.6578, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4954943048052935635
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3634434152142662539}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac4cd209153e2bb44b35db76875da30e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GameManager
+  unlockService: {fileID: 9181628852984039689}
+  audioManager: {fileID: 0}
+  currentScore: 0
+  pointsPerSuccess: 10
+  pointsPerFailure: -5
+  totalOrders: 0
+  successfulOrders: 0
+  failedOrders: 0
+  maxFailedOrders: 3
+  winningScore: 100
+--- !u!114 &9181628852984039689
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3634434152142662539}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9583112a1ec5f0147b895d8b8df68b6d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UnlockService
+  allIngredients:
+  - {fileID: 11400000, guid: a1b56ea12fe9d70408f2c784c9b045d0, type: 2}
+  - {fileID: 11400000, guid: d925d574f2647214ebc6f91f5fb959a2, type: 2}
+  - {fileID: 11400000, guid: f4c2ebc47ca4b8a4bbcee9830ceafcc3, type: 2}
+  - {fileID: 11400000, guid: 8f94e150205bb344eade812e52e292cb, type: 2}
+  - {fileID: 11400000, guid: e04cc0200fb5bb94b9e7a9f79fe992bc, type: 2}
+  - {fileID: 11400000, guid: f9c3cb4fa3c2db248ac590c61bb097e4, type: 2}
+  - {fileID: 11400000, guid: 3c61919069a331e41a966ba6b8a164be, type: 2}
+  - {fileID: 11400000, guid: 412d02ff5bd433c4c9f0fd4af645db11, type: 2}
+  - {fileID: 11400000, guid: c2aa9d6dfdaa47a49a344009b6eb32cc, type: 2}
+  - {fileID: 11400000, guid: 3510bd72cdd2b3c43bc6cace43ef484c, type: 2}
+  - {fileID: 11400000, guid: d24e41b60ee566c46a0f6c99f91ff0d6, type: 2}
+  - {fileID: 11400000, guid: d9077a67cb4c2b447b02ded0bf4fe0c8, type: 2}
+  - {fileID: 11400000, guid: 233e0267a69193547a91d41f46463148, type: 2}
+  - {fileID: 11400000, guid: 1cd648b5339ed0342a0daf6e243536d5, type: 2}
+  initiallyUnlocked:
+  - {fileID: 11400000, guid: a1b56ea12fe9d70408f2c784c9b045d0, type: 2}
+  - {fileID: 11400000, guid: e04cc0200fb5bb94b9e7a9f79fe992bc, type: 2}
+  - {fileID: 11400000, guid: 8f94e150205bb344eade812e52e292cb, type: 2}
+  usePlayerPrefs: 1
+  prefsKey: MM_IngredientUnlocks
