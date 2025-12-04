@@ -9,7 +9,6 @@ namespace Moncho.Orders
     {
         [Header("Refs")]
         [SerializeField] private CraftingManager crafting;
-        [SerializeField] private UnlockService unlocks;
         [SerializeField] private GameManager gameManager;
 
         [Header("Preparaciones específicas")]
@@ -148,7 +147,7 @@ namespace Moncho.Orders
         {
             List<OrderRecipe> availableRecipes = new List<OrderRecipe>();
 
-            if (unlocks == null)
+            if (UnlockService.Instance == null)
             {
                 Log("UnlockService no asignado");
                 return availableRecipes;
@@ -168,7 +167,7 @@ namespace Moncho.Orders
                         break;
                     }
 
-                    if (!unlocks.IsUnlocked(ingredient))
+                    if (!UnlockService.Instance.IsUnlocked(ingredient))
                     {
                         allIngredientsUnlocked = false;
                         break;

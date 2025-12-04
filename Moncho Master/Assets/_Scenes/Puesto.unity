@@ -840,7 +840,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1736a71ba12d8f347910bbf5854133d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LoteriaService
-  unlocks: {fileID: 9181628852984039689, guid: f9edaef5d57bc3f4bb41e1ed2cbaaaad, type: 3}
   crafting: {fileID: 1955851082}
   rows: 3
   cols: 3
@@ -2973,8 +2972,8 @@ Canvas:
   m_GameObject: {fileID: 663457439}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
-  m_Camera: {fileID: 0}
+  m_RenderMode: 1
+  m_Camera: {fileID: 519420031}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
@@ -3226,7 +3225,6 @@ MonoBehaviour:
     min: 0
     max: 6
   locked: 0
-  unlocks: {fileID: 9181628852984039689, guid: f9edaef5d57bc3f4bb41e1ed2cbaaaad, type: 3}
 --- !u!1 &765154468
 GameObject:
   m_ObjectHideFlags: 0
@@ -5213,6 +5211,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Cuerito
       objectReference: {fileID: 0}
+    - target: {fileID: 4643549007807577430, guid: c05f2df0d46dddc4a8c736a1e9489ad1, type: 3}
+      propertyPath: m_SortingOrder
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4719928282779668494, guid: c05f2df0d46dddc4a8c736a1e9489ad1, type: 3}
       propertyPath: uiCanvas
       value: 
@@ -6307,7 +6309,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Moncho.Orders.NPCOrderService
   crafting: {fileID: 1955851082}
-  unlocks: {fileID: 9181628852984039689, guid: f9edaef5d57bc3f4bb41e1ed2cbaaaad, type: 3}
   gameManager: {fileID: 4954943048052935635, guid: f9edaef5d57bc3f4bb41e1ed2cbaaaad, type: 3}
   specificRecipes:
   - recipeName: Elote Sencillo

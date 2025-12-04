@@ -20,8 +20,6 @@ public class PlateContainer : MonoBehaviour
     private int _lastAddFrame = -1;
     private string _lastAddId = null;
 
-    [SerializeField] private UnlockService unlocks;
-    public void SetUnlockService(UnlockService svc) => unlocks = svc;
     public bool IsLocked { get { return locked; } }
     public void SetLocked(bool value) { locked = value; }
     private readonly List<IngredientSO> _items = new List<IngredientSO>();
@@ -37,7 +35,7 @@ public class PlateContainer : MonoBehaviour
     private bool IsIngredientUnlocked(IngredientSO ing)
     {
         if (ing == null) return false;
-        if (unlocks != null) return unlocks.IsUnlocked(ing);
+        if (UnlockService.Instance != null) return UnlockService.Instance.IsUnlocked(ing);
         return ing.IsUnlocked;
     }
 

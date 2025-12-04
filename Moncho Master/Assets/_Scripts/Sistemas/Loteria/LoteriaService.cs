@@ -5,7 +5,6 @@ using UnityEngine;
 public class LoteriaService : MonoBehaviour
 {
     [Header("Refs")]
-    [SerializeField] private UnlockService unlocks;
     [SerializeField] private CraftingManager crafting;
 
     [Header("Tablero")]
@@ -123,12 +122,12 @@ public class LoteriaService : MonoBehaviour
         if (catalogForBoard == null || catalogForBoard.Length == 0)
             return Array.Empty<IngredientSO>();
 
-        if (unlocks == null)
+        if (UnlockService.Instance == null)
             return catalogForBoard;
 
         var list = new System.Collections.Generic.List<IngredientSO>();
         foreach (var ing in catalogForBoard)
-            if (ing != null && unlocks.IsUnlocked(ing))
+            if (ing != null && UnlockService.Instance.IsUnlocked(ing))
                 list.Add(ing);
 
         if (list.Count == 0)
@@ -174,14 +173,14 @@ public class LoteriaService : MonoBehaviour
 
     private void UnlockRandomIngredient()
     {
-        if (unlocks == null) return;
-        var locked = unlocks.GetRandomLocked();
+        if (UnlockService.Instance == null) return;
+        var locked = UnlockService.Instance.GetRandomLocked();
         if (locked == null)
         {
             Debug.Log("[Loteria] No hay ingredientes bloqueados para desbloquear.");
             return;
         }
-        bool ok = unlocks.Unlock(locked);
+        bool ok = UnlockService.Instance.Unlock(locked);
         if (ok) Debug.Log("[Loteria] Desbloqueado por línea: " + locked.Id, locked);
     }
 

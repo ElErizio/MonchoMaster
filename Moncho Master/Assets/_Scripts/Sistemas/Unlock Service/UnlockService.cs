@@ -141,7 +141,6 @@ public class UnlockService : MonoBehaviour
 
     public bool IsUnlocked(IngredientSO ing)
     {
-        if (ing == null || string.IsNullOrEmpty(ing.Id)) return false;
         return _unlocked.Contains(ing.Id);
     }
 
