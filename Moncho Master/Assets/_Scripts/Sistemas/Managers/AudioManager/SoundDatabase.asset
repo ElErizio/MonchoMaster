@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 336870991b157fc4d9a67ad6de5e9b95, type: 3}
+  m_Name: SoundDatabase
+  m_EditorClassIdentifier: Assembly-CSharp::SoundDatabase
+  sounds:
+  - name: Moncho Master
+    clip: {fileID: 8300000, guid: 8733192c365ccc747a6bb97242633020, type: 3}
+  - name: MainMenuMusic
+    clip: {fileID: 8300000, guid: f8f7d64f2bbdfac4db0b64f361172a96, type: 3}
+  - name: CreditsMusic
+    clip: {fileID: 8300000, guid: 06751c3783d92dd43b6c1311751e6f1d, type: 3}
+  - name: MusicPuesto
+    clip: {fileID: 8300000, guid: d666a3f0e003c13468ad66e772921419, type: 3}
+  - name: LoteriaComplete
+    clip: {fileID: 8300000, guid: 2929804879cb8f74f9f256d3d983eda6, type: 3}
+  - name: BuildCartas
+    clip: {fileID: 8300000, guid: c375891e23e68644d9794a795c48d1dd, type: 3}
+  - name: ClickAtras
+    clip: {fileID: 8300000, guid: 3e75f3ae14b7b8344abd241e00c1343d, type: 3}
+  - name: ClickPausa
+    clip: {fileID: 8300000, guid: ae50d6d698c62574aa6324bcaa49583e, type: 3}
+  - name: ClickSelect
+    clip: {fileID: 8300000, guid: 2f693c5b176419546934d27c49914ec1, type: 3}
+  - name: Jugar
+    clip: {fileID: 8300000, guid: b3fece4fb1e2aa447b36aae7715ffeac, type: 3}
+  - name: NuevoCliente
+    clip: {fileID: 8300000, guid: 175e17926027e554ca54f63cd0562f88, type: 3}
+  - name: MarcarCasilla
+    clip: {fileID: 8300000, guid: cc498f37c50bbf749adda9e8f05765e3, type: 3}
+  - name: Desbloqueo
+    clip: {fileID: 8300000, guid: a74a89b9ec42e0d45993c22d191bcce0, type: 3}

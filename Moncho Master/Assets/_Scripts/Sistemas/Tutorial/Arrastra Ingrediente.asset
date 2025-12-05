@@ -14,11 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TutorialStep
   id: drag_ingredient
   title: "\xA1Arrastra un ingrediente!"
-  body: "El cliente te pide unos esquites con crema y queso. \nPero date prisa que
-    su paciencia se acaba. "
+  body: "El cliente te hace un pedido\n \nPero date prisa que su paciencia se acaba. "
   image: {fileID: 0}
   completeMode: 2
-  seconds: 6
+  seconds: 4
   key: 32
   eventName: PrimerIngredienteColocado
   pauseGameplay: 0

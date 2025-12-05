@@ -14,11 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TutorialStep
   id: loteria_progress
   title: "Progresa en la Loter\xEDa"
-  body: "Un pedido correcto marca una casilla. Completa una l\xEDnea para desbloquear
+  body: "Un pedido correcto marca una casilla. \nCompleta una l\xEDnea para desbloquear
     ingredientes."
   image: {fileID: 0}
   completeMode: 2
-  seconds: 2
+  seconds: 3
   key: 32
   eventName: LoteriaActualizada
   pauseGameplay: 0

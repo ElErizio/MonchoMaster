@@ -229,6 +229,4 @@ public class UnlockService : MonoBehaviour
         yield return null;
         var h = OnUnlocksChanged; if (h != null) h();
     }
-
-    //Punto Safe
 }

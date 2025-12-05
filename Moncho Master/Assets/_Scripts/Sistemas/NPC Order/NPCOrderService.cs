@@ -116,6 +116,7 @@ namespace Moncho.Orders
         public void GenerateNextOrder()
         {
             if (!ValidateRecipes()) return;
+            AudioManager.Instance.NuevoCliente();
 
             List<OrderRecipe> availableRecipes = GetRecipesWithUnlockedIngredients();
 

@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5145700794881472238}
   - component: {fileID: 666097419018336430}
   - component: {fileID: 4620490003590030406}
+  - component: {fileID: 1516190855011575717}
   m_Layer: 5
   m_Name: Tostitos Base
   m_TagString: Untagged
@@ -97,6 +98,29 @@ MonoBehaviour:
   uiSelectable: {fileID: 0}
   ingredientImage: {fileID: 666097419018336430}
   unlockParticleSystem: {fileID: 7933853087188464674}
+--- !u!223 &1516190855011575717
+Canvas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3521749179147648681}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_RenderMode: 2
+  m_Camera: {fileID: 0}
+  m_PlaneDistance: 100
+  m_PixelPerfect: 0
+  m_ReceivesEvents: 1
+  m_OverrideSorting: 1
+  m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
+  m_VertexColorAlwaysGammaSpace: 0
+  m_AdditionalShaderChannelsFlag: 0
+  m_UpdateRectTransformForStandalone: 0
+  m_SortingLayerID: 0
+  m_SortingOrder: -1
+  m_TargetDisplay: 0
 --- !u!1001 &578226596194712972
 PrefabInstance:
   m_ObjectHideFlags: 0

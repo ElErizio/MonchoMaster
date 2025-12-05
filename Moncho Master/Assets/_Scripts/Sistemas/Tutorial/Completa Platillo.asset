@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TutorialStep
   id: craft_dish
   title: Completa el platillo
-  body: "Agrega los ingredientes correctos hasta armar un platillo v\xE1lido."
+  body: Agrega los ingredientes hasta armar un platillo.
   image: {fileID: 0}
   completeMode: 0
   seconds: 5

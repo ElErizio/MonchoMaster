@@ -8,7 +8,6 @@ public class LoteriaCellUI : MonoBehaviour
 
     [Header("Efectos de Marcado")]
     [SerializeField] private ParticleSystem markParticles;
-    [SerializeField] private AudioSource markSound;
 
     public void Bind(Sprite sprite, bool marked, bool playEffects = false)
     {
@@ -45,18 +44,13 @@ public class LoteriaCellUI : MonoBehaviour
 
     public void PlayMarkEffects()
     {
-        // Activar partículas
+        AudioManager.Instance.MarcarCasilla();
+
         if (markParticles != null)
         {
             markParticles.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
             markParticles.Play();
         }
-
-        /* Reproducir sonido
-        if (markSound != null && markSound.clip != null)
-        {
-            markSound.Play();
-        }*/
 
         if (markOverlay != null)
         {

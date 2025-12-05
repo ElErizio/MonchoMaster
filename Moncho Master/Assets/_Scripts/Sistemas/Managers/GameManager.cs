@@ -29,16 +29,12 @@ public class GameManager : MonoBehaviour
     private Text ordersText;
     private Text orderDetailsText;
 
-    private GameState currentGameState = GameState.Playing;
+    private GameState currentState = GameState.PLAY;
     private NPCOrderService.OrderSpec _currentOrder;
 
-    public enum GameState
-    {
-        Playing,
-        Paused,
-        GameOver,
-        Menu
-    }
+    public enum GameState { PLAY, PAUSE, MENU, GAME_OVER }
+
+    public GameState CurrentState => currentState;
 
     private void Awake()
     {
@@ -50,11 +46,11 @@ public class GameManager : MonoBehaviour
 
         Instance = this;
         InitializeServices();
+        Time.timeScale = 1f;
     }
 
     private void Start()
     {
-        //UpdateUI();
     }
 
     private void InitializeServices()
@@ -64,6 +60,57 @@ public class GameManager : MonoBehaviour
 
         if (audioManager == null)
             audioManager = GetComponentInChildren<AudioManager>();
+    }
+
+    public void SetGameState(GameState newState)
+    {
+        currentState = newState;
+
+        switch (currentState)
+        {
+            case GameState.PLAY:
+                Time.timeScale = 1f;
+                break;
+            case GameState.PAUSE:
+                Time.timeScale = 0f;
+                break;
+            case GameState.MENU:
+                Time.timeScale = 1f;
+                break;
+            case GameState.GAME_OVER:
+                Time.timeScale = 0f;
+                break;
+        }
+
+        Debug.Log($"Estado del juego cambiado a: {currentState}");
+    }
+
+    public void TogglePause()
+    {
+        if (currentState == GameState.PLAY)
+        {
+            SetGameState(GameState.PAUSE);
+        }
+        else if (currentState == GameState.PAUSE)
+        {
+            SetGameState(GameState.PLAY);
+        }
+    }
+
+    public void PauseGame()
+    {
+        SetGameState(GameState.PAUSE);
+    }
+
+    public void ResumeGame()
+    {
+        SetGameState(GameState.PLAY);
+    }
+
+    public void GoToMenu()
+    {
+        SetGameState(GameState.MENU);
+        SceneManager.LoadScene("Main Menu");
     }
 
     public void OnNewOrderGenerated(NPCOrderService.OrderSpec newOrder)
@@ -82,11 +129,12 @@ public class GameManager : MonoBehaviour
         }
 
         Debug.Log($"Nueva orden generada! Total de órdenes: {totalOrders}");
-        //UpdateUI();
     }
 
     public void OnOrderCompleted(NPCOrderService.OrderSpec completedOrder, bool wasSuccessful)
     {
+        if (currentState != GameState.PLAY) return;
+
         if (wasSuccessful)
         {
             successfulOrders++;
@@ -124,27 +172,17 @@ public class GameManager : MonoBehaviour
 
         currentScore = Mathf.Max(0, currentScore);
 
-        //UpdateUI();
         CheckGameConditions();
     }
 
-    /*private void UpdateUI()
-    {
-        if (scoreText != null)
-            scoreText.text = $"Puntos: {currentScore}";
-
-        if (ordersText != null)
-        {
-            float successRate = totalOrders > 0 ? (float)successfulOrders / totalOrders * 100 : 0f;
-            ordersText.text = $"Éxito: {successfulOrders}/{totalOrders} ({successRate:F1}%)";
-        }
-    }*/
 
     private void CheckGameConditions()
     {
+        if (currentState == GameState.GAME_OVER) return;
+
         if (currentScore >= winningScore)
         {
-            currentGameState = GameState.GameOver;
+            SetGameState(GameState.GAME_OVER);
             if (orderDetailsText != null)
                 orderDetailsText.text = "¡VICTORIA!";
 
@@ -154,7 +192,7 @@ public class GameManager : MonoBehaviour
 
         if (failedOrders >= maxFailedOrders)
         {
-            currentGameState = GameState.GameOver;
+            SetGameState(GameState.GAME_OVER);
             if (orderDetailsText != null)
                 orderDetailsText.text = "GAME OVER";
 
@@ -163,24 +201,13 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void PauseGame()
-    {
-        currentGameState = GameState.Paused;
-        Time.timeScale = 0f;
-    }
-
-    public void ResumeGame()
-    {
-        currentGameState = GameState.Playing;
-        Time.timeScale = 1f;
-    }
-
-
     public void AddBonusPoints(int bonus)
     {
-        currentScore += bonus;
-        //UpdateUI();
-        CheckGameConditions(); // Verificar condiciones después de agregar puntos
+        if (currentState == GameState.PLAY)
+        {
+            currentScore += bonus;
+            CheckGameConditions();
+        }
     }
 
     public void ResetGame()
@@ -189,12 +216,11 @@ public class GameManager : MonoBehaviour
         totalOrders = 0;
         successfulOrders = 0;
         failedOrders = 0;
-        currentGameState = GameState.Playing;
-        Time.timeScale = 1f;
+        SetGameState(GameState.PLAY);
         if (orderDetailsText != null)
             orderDetailsText.text = "¡Comienza a cocinar!";
-        //UpdateUI();
     }
+
     public int GetCurrentScore() => currentScore;
     public int GetSuccessfulOrders() => successfulOrders;
     public int GetTotalOrders() => totalOrders;
@@ -203,5 +229,4 @@ public class GameManager : MonoBehaviour
 
     public UnlockService GetUnlockService() => unlockService;
     public AudioManager GetAudioManager() => audioManager;
-    public GameState GetCurrentState() => currentGameState;
 }

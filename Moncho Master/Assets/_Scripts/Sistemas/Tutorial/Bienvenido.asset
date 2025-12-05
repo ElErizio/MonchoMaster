@@ -13,9 +13,8 @@ MonoBehaviour:
   m_Name: Bienvenido
   m_EditorClassIdentifier: Assembly-CSharp::TutorialStep
   id: welcome
-  title: "\xA1Bienvenido Gonxolo, es hora de ser el Moncho Master!"
-  body: "Arrastra ingredientes al plato para preparar pedidos. \n\nPresiona Espacio
-    para continuar."
+  title: "\xA1Es hora de ser el Moncho Master!"
+  body: "PRESIONA \nESPACIO PARA CONTINUAR"
   image: {fileID: 0}
   completeMode: 1
   seconds: 35

@@ -86,6 +86,7 @@ public class LoteriaService : MonoBehaviour
 
         if (HasLineComplete())
         {
+            AudioManager.Instance.LoteriaComplete();
             UnlockRandomIngredient();
             BuildBoard();
         }
@@ -183,6 +184,7 @@ public class LoteriaService : MonoBehaviour
 
     private void UnlockRandomIngredient()
     {
+        AudioManager.Instance.Desbloqueo();
         if (UnlockService.Instance == null) return;
         var locked = UnlockService.Instance.GetRandomLocked();
         if (locked == null)
