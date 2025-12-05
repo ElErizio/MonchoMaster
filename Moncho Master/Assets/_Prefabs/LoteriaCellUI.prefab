@@ -167,6 +167,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::LoteriaCellUI
   icon: {fileID: 4928881665319197122}
   markOverlay: {fileID: 1389001848700691761}
+  markParticles: {fileID: 2327779878741333318}
+  markSound: {fileID: 0}
 --- !u!1001 &654237457768233684
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -260,6 +262,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 37c41ec403a212c4eb518f55ae286d8c, type: 3}
+--- !u!198 &2327779878741333318 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 2979622596928761746, guid: 37c41ec403a212c4eb518f55ae286d8c, type: 3}
+  m_PrefabInstance: {fileID: 654237457768233684}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6451189515477183567 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5806102195790829211, guid: 37c41ec403a212c4eb518f55ae286d8c, type: 3}

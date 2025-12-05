@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class LoteriaHUD : MonoBehaviour
 {
@@ -11,20 +10,37 @@ public class LoteriaHUD : MonoBehaviour
     [SerializeField] private Transform gridRoot;
 
     private readonly List<GameObject> _spawned = new List<GameObject>();
+    private readonly List<LoteriaCellUI> _cellUIs = new List<LoteriaCellUI>();
     private bool _deferredQueued;
 
     private void OnEnable()
     {
-        if (loteria != null) loteria.OnBoardChanged += Rebuild;
+        if (loteria != null)
+        {
+            loteria.OnBoardChanged += Rebuild;
+            loteria.OnCellMarked += OnSpecificCellMarked;
+        }
         Rebuild();
         QueueDeferredRebuild();
     }
 
     private void OnDisable()
     {
-        if (loteria != null) loteria.OnBoardChanged -= Rebuild;
+        if (loteria != null)
+        {
+            loteria.OnBoardChanged -= Rebuild;
+            loteria.OnCellMarked -= OnSpecificCellMarked;
+        }
         _deferredQueued = false;
         StopAllCoroutines();
+    }
+
+    private void OnSpecificCellMarked(int cellIndex)
+    {
+        if (cellIndex >= 0 && cellIndex < _cellUIs.Count && _cellUIs[cellIndex] != null)
+        {
+            _cellUIs[cellIndex].PlayMarkEffects();
+        }
     }
 
     private void QueueDeferredRebuild()
@@ -43,8 +59,12 @@ public class LoteriaHUD : MonoBehaviour
 
     private void Clear()
     {
-        for (int i = 0; i < _spawned.Count; i++) if (_spawned[i] != null) Destroy(_spawned[i]);
+        for (int i = 0; i < _spawned.Count; i++)
+            if (_spawned[i] != null)
+                Destroy(_spawned[i]);
+
         _spawned.Clear();
+        _cellUIs.Clear();
     }
 
     [ContextMenu("Hola Papu")]
@@ -85,6 +105,8 @@ public class LoteriaHUD : MonoBehaviour
                 continue;
             }
 
+            _cellUIs.Add(ui);
+
             Sprite sp = null;
             if (unlocks != null && !string.IsNullOrEmpty(cells[i].ingredientId))
             {
@@ -93,10 +115,8 @@ public class LoteriaHUD : MonoBehaviour
                     sp = ing.Card;
             }
 
-            ui.Bind(sp, cells[i].marked);
+            ui.Bind(sp, cells[i].marked, false);
         }
-        // Debug para mencionar cuantas Celdas se crearon para la lotería
         // Debug.Log("[LoteriaHUD] Celdas instanciadas: " + created, this);
     }
-
 }

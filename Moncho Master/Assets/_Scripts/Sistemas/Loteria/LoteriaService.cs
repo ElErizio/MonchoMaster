@@ -22,6 +22,8 @@ public class LoteriaService : MonoBehaviour
 
     public delegate void BoardChanged();
     public event BoardChanged OnBoardChanged;
+    public delegate void CellMarkedHandler(int cellIndex);
+    public event CellMarkedHandler OnCellMarked;
 
     public int Rows { get { return rows; } }
     public int Cols { get { return cols; } }
@@ -61,18 +63,26 @@ public class LoteriaService : MonoBehaviour
 
         int targetFreeIndex = UnityEngine.Random.Range(0, free);
         int seen = 0;
+        int markedIndex = -1;
+
         for (int i = 0; i < n; i++)
         {
             if (_board[i].marked) continue;
             if (seen == targetFreeIndex)
             {
                 _board[i].marked = true;
+                markedIndex = i;
                 break;
             }
             seen++;
         }
 
         OnBoardChanged?.Invoke();
+
+        if (markedIndex >= 0)
+        {
+            OnCellMarked?.Invoke(markedIndex);
+        }
 
         if (HasLineComplete())
         {
