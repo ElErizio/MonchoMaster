@@ -59,7 +59,6 @@ public class UnlockService : MonoBehaviour
                 }
             }
         }
-        Debug.Log("=== FIN DEBUG ===");
     }
 
     public Sprite GetIngredientCard(string ingredientId)
@@ -230,4 +229,6 @@ public class UnlockService : MonoBehaviour
         yield return null;
         var h = OnUnlocksChanged; if (h != null) h();
     }
+
+    //Punto Safe
 }

@@ -14,9 +14,13 @@ public class IngredientUI : MonoBehaviour
     [SerializeField] private Selectable uiSelectable;
     [SerializeField] private Image ingredientImage;
 
+    [Header("Particle System")]
+    [SerializeField] private ParticleSystem unlockParticleSystem;
+
     private Color _originalImageColor;
     private bool _isInitialized = false;
     private bool _hasValidIngredient = false;
+    private bool _wasUnlocked = false;
 
     private void Awake()
     {
@@ -37,18 +41,14 @@ public class IngredientUI : MonoBehaviour
             _originalImageColor = ingredientImage.color;
 
         _hasValidIngredient = ingredient != null && !string.IsNullOrEmpty(ingredient.Id);
-
         _isInitialized = true;
-
-        // Debug.Log($"[IngredientUI] {gameObject.name} inicializado - Ingrediente válido: {_hasValidIngredient}");
     }
 
     private void OnEnable()
     {
-        if (!_isInitialized) InitializeComponents();    
+        if (!_isInitialized) InitializeComponents();
 
         unlockService.OnUnlocksChanged += RefreshVisuals;
-
         StartCoroutine(RefreshAfterDelay());
     }
 
@@ -73,20 +73,17 @@ public class IngredientUI : MonoBehaviour
     {
         if (!_isInitialized) InitializeComponents();
 
-        /*if (!_hasValidIngredient)
-        {
-            Debug.LogWarning($"[IngredientUI] {gameObject.name} - No tiene un IngredientSO válido asignado");
+        if (!_hasValidIngredient || unlockService == null)
             return;
-        }
-
-        if (unlockService == null)
-        {
-            Debug.LogError($"[IngredientUI] {gameObject.name} - UnlockService no disponible");
-            return;
-        }*/
 
         bool isUnlocked = unlockService.IsUnlocked(ingredient);
 
+        if (!_wasUnlocked && isUnlocked && unlockParticleSystem != null)
+        {
+            unlockParticleSystem.Play();
+        }
+
+        _wasUnlocked = isUnlocked;
         UpdateVisualState(isUnlocked);
     }
 
@@ -108,26 +105,5 @@ public class IngredientUI : MonoBehaviour
         {
             gameObject.SetActive(isUnlocked);
         }
-
-        // Debug.Log($"[IngredientUI] {gameObject.name} - Estado: {(isUnlocked ? "DESBLOQUEADO" : "BLOQUEADO")}");
     }
-
-    /*[ContextMenu("Debug Ingredient State")]
-    public void DebugIngredientState()
-    {
-        if (!_hasValidIngredient)
-        {
-            Debug.LogError($"[DEBUG] {gameObject.name} - No tiene IngredientSO válido");
-            return;
-        }
-
-        if (unlockService == null)
-        {
-            Debug.LogError($"[DEBUG] {gameObject.name} - No hay UnlockService");
-            return;
-        }
-
-        bool isUnlocked = unlockService.IsUnlocked(ingredient);
-        Debug.Log($"[DEBUG] {gameObject.name} - ID: {ingredient.Id} - Desbloqueado: {isUnlocked}");
-    }*/
 }
