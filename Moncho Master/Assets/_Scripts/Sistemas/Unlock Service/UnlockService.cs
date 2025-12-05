@@ -30,22 +30,14 @@ public class UnlockService : MonoBehaviour
     {
         if (Instance != null && Instance != this)
         {
-            Debug.LogWarning($"Múltiples UnlockServices detectados. Destruyendo {gameObject.name}", this);
             Destroy(gameObject);
             return;
         }
 
         Instance = this;
-        DontDestroyOnLoad(gameObject);
 
         InitializeDictionary();
         LoadState();
-
-        Debug.Log($"[UnlockService] Inicializado y persistente. ID: {GetInstanceID()}", this);
-    }
-
-    private void Start()
-    {
         StartCoroutine(NotifyReadyNextFrame());
     }
 
