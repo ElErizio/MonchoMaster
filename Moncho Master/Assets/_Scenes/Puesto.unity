@@ -262,7 +262,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &151439644
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -308,7 +308,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &185229531
 Transform:
   m_ObjectHideFlags: 0
@@ -2957,7 +2957,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1342863577
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3339,6 +3339,40 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 8f94e150205bb344eade812e52e292cb, type: 2}
     - {fileID: 11400000, guid: d24e41b60ee566c46a0f6c99f91ff0d6, type: 2}
     - {fileID: 11400000, guid: f9c3cb4fa3c2db248ac590c61bb097e4, type: 2}
+  - recipeName: Salchipulpo M C
+    requiredIngredients:
+    - {fileID: 11400000, guid: f4c2ebc47ca4b8a4bbcee9830ceafcc3, type: 2}
+    - {fileID: 11400000, guid: 412d02ff5bd433c4c9f0fd4af645db11, type: 2}
+    - {fileID: 11400000, guid: d24e41b60ee566c46a0f6c99f91ff0d6, type: 2}
+  - recipeName: Salchipulpo M C C
+    requiredIngredients:
+    - {fileID: 11400000, guid: f4c2ebc47ca4b8a4bbcee9830ceafcc3, type: 2}
+    - {fileID: 11400000, guid: 412d02ff5bd433c4c9f0fd4af645db11, type: 2}
+    - {fileID: 11400000, guid: d24e41b60ee566c46a0f6c99f91ff0d6, type: 2}
+    - {fileID: 11400000, guid: 8f94e150205bb344eade812e52e292cb, type: 2}
+  - recipeName: Salchipulpo M C C
+    requiredIngredients:
+    - {fileID: 11400000, guid: f4c2ebc47ca4b8a4bbcee9830ceafcc3, type: 2}
+    - {fileID: 11400000, guid: 412d02ff5bd433c4c9f0fd4af645db11, type: 2}
+    - {fileID: 11400000, guid: d24e41b60ee566c46a0f6c99f91ff0d6, type: 2}
+    - {fileID: 11400000, guid: 8f94e150205bb344eade812e52e292cb, type: 2}
+  - recipeName: Salchipulpo M C C
+    requiredIngredients:
+    - {fileID: 11400000, guid: f4c2ebc47ca4b8a4bbcee9830ceafcc3, type: 2}
+    - {fileID: 11400000, guid: 412d02ff5bd433c4c9f0fd4af645db11, type: 2}
+    - {fileID: 11400000, guid: d24e41b60ee566c46a0f6c99f91ff0d6, type: 2}
+    - {fileID: 11400000, guid: 8f94e150205bb344eade812e52e292cb, type: 2}
+  - recipeName: Tostitos
+    requiredIngredients:
+    - {fileID: 11400000, guid: d925d574f2647214ebc6f91f5fb959a2, type: 2}
+    - {fileID: 11400000, guid: 3c61919069a331e41a966ba6b8a164be, type: 2}
+    - {fileID: 11400000, guid: d9077a67cb4c2b447b02ded0bf4fe0c8, type: 2}
+  - recipeName: Tostitos C
+    requiredIngredients:
+    - {fileID: 11400000, guid: d925d574f2647214ebc6f91f5fb959a2, type: 2}
+    - {fileID: 11400000, guid: 3c61919069a331e41a966ba6b8a164be, type: 2}
+    - {fileID: 11400000, guid: d9077a67cb4c2b447b02ded0bf4fe0c8, type: 2}
+    - {fileID: 11400000, guid: 1cd648b5339ed0342a0daf6e243536d5, type: 2}
   clientContainer: {fileID: 8465248}
   clientPrefabs:
   - {fileID: 7772036469450930939, guid: d0fdb2ac9cd205f439dd91d8ac3bd451, type: 3}
@@ -5886,7 +5920,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9181628852984039689, guid: f9edaef5d57bc3f4bb41e1ed2cbaaaad, type: 3}
       propertyPath: initiallyUnlocked.Array.size
-      value: 6
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 9181628852984039689, guid: f9edaef5d57bc3f4bb41e1ed2cbaaaad, type: 3}
       propertyPath: 'initiallyUnlocked.Array.data[3]'
@@ -5900,6 +5934,22 @@ PrefabInstance:
       propertyPath: 'initiallyUnlocked.Array.data[5]'
       value: 
       objectReference: {fileID: 11400000, guid: f4c2ebc47ca4b8a4bbcee9830ceafcc3, type: 2}
+    - target: {fileID: 9181628852984039689, guid: f9edaef5d57bc3f4bb41e1ed2cbaaaad, type: 3}
+      propertyPath: 'initiallyUnlocked.Array.data[6]'
+      value: 
+      objectReference: {fileID: 11400000, guid: c2aa9d6dfdaa47a49a344009b6eb32cc, type: 2}
+    - target: {fileID: 9181628852984039689, guid: f9edaef5d57bc3f4bb41e1ed2cbaaaad, type: 3}
+      propertyPath: 'initiallyUnlocked.Array.data[7]'
+      value: 
+      objectReference: {fileID: 11400000, guid: d9077a67cb4c2b447b02ded0bf4fe0c8, type: 2}
+    - target: {fileID: 9181628852984039689, guid: f9edaef5d57bc3f4bb41e1ed2cbaaaad, type: 3}
+      propertyPath: 'initiallyUnlocked.Array.data[8]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 412d02ff5bd433c4c9f0fd4af645db11, type: 2}
+    - target: {fileID: 9181628852984039689, guid: f9edaef5d57bc3f4bb41e1ed2cbaaaad, type: 3}
+      propertyPath: 'initiallyUnlocked.Array.data[9]'
+      value: 
+      objectReference: {fileID: 11400000, guid: d925d574f2647214ebc6f91f5fb959a2, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6462,6 +6512,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1516190855011575717, guid: 7f925bbaaadf4d14897f2b91cf671c3b, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3521749179147648681, guid: 7f925bbaaadf4d14897f2b91cf671c3b, type: 3}
       propertyPath: m_Name
       value: Tostitos Base
@@ -6562,7 +6616,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1516190855011575717, guid: 7f925bbaaadf4d14897f2b91cf671c3b, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

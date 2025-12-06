@@ -136,7 +136,7 @@ public class TutorialManager : MonoBehaviour
                     try
                     {
                         while (!released)
-                            yield return null; // respeta pausa porque usamos unscaled/fade afuera
+                            yield return null;
                     }
                     finally
                     {
@@ -153,7 +153,6 @@ public class TutorialManager : MonoBehaviour
 
 
             case TutorialStep.CompleteMode.OnEvent:
-                // Esta ruta se resuelve desde OnTutorialEvent que setea un flag
                 _awaitingEvent = step.eventName;
                 while (!string.IsNullOrEmpty(_awaitingEvent))
                     yield return null;
@@ -167,7 +166,7 @@ public class TutorialManager : MonoBehaviour
     {
         if (!string.IsNullOrEmpty(_awaitingEvent) && evt == _awaitingEvent)
         {
-            _awaitingEvent = null; // libera el wait
+            _awaitingEvent = null;
         }
     }
 
@@ -182,7 +181,7 @@ public class TutorialManager : MonoBehaviour
 
         while (t < fadeTime)
         {
-            t += Time.unscaledDeltaTime; // para que el fade funcione si pausas el juego
+            t += Time.unscaledDeltaTime;
             panel.alpha = Mathf.Lerp(from, to, t / fadeTime);
             yield return null;
         }
@@ -191,8 +190,6 @@ public class TutorialManager : MonoBehaviour
         if (!show)
             panel.gameObject.SetActive(false);
     }
-
-    // API pública por si quieres saltar o repetir
     public void SkipTo(int newIndex)
     {
         _index = Mathf.Clamp(newIndex, 0, steps.Count - 1);
